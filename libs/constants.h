@@ -1,0 +1,2 @@
+#define SPRITE_WIDTH 32
+#define SPRITE_HEIGHT 32
