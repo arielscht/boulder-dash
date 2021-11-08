@@ -29,25 +29,29 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard)
     if (keyboard[ALLEGRO_KEY_LEFT])
     {
         player->x -= SPRITE_WIDTH;
-        player->last_direction = player->direction;
+        if (player->direction != LEFT_DIR)
+            player->last_direction = player->direction;
         player->direction = LEFT_DIR;
     }
     else if (keyboard[ALLEGRO_KEY_RIGHT])
     {
         player->x += SPRITE_WIDTH;
-        player->last_direction = player->direction;
+        if (player->direction != RIGHT_DIR)
+            player->last_direction = player->direction;
         player->direction = RIGHT_DIR;
     }
     else if (keyboard[ALLEGRO_KEY_UP])
     {
         player->y -= SPRITE_HEIGHT;
-        player->last_direction = player->direction;
+        if (player->direction != UP_DIR && player->direction != DOWN_DIR)
+            player->last_direction = player->direction;
         player->direction = UP_DIR;
     }
     else if (keyboard[ALLEGRO_KEY_DOWN])
     {
         player->y += SPRITE_HEIGHT;
-        player->last_direction = player->direction;
+        if (player->direction != DOWN_DIR && player->direction != UP_DIR)
+            player->last_direction = player->direction;
         player->direction = DOWN_DIR;
     }
     else
@@ -55,11 +59,23 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard)
         player->active = false;
     }
 
-    if (player->last_direction != player->direction)
+    // if (player->last_direction != player->direction)
+    // {
+    //     player->sourceX = 0;
+    //     player->sourceY = 0;
+    // }
+
+    player->sourceX += SPRITE_WIDTH;
+
+    if (player->sourceX >= SPRITE_WIDTH * 8)
     {
         player->sourceX = 0;
-        player->sourceY = 0;
+        if (!player->active)
+            player->sourceY += SPRITE_WIDTH;
     }
+
+    if (player->sourceY >= SPRITE_HEIGHT * 3 || player->active)
+        player->sourceY = 0;
 
     if (player->x < SPRITE_WIDTH)
         player->x = SPRITE_WIDTH;
@@ -76,41 +92,19 @@ void rockford_draw(ROCKFORD *player, SPRITES *sprites)
 {
     if (player->active)
     {
-        if (player->direction == RIGHT_DIR || (player->last_direction == RIGHT_DIR && (player->direction == UP_DIR || player->direction == DOWN_DIR)))
+        if (player->direction == RIGHT_DIR || (player->last_direction == RIGHT_DIR && (player->direction == DOWN_DIR || player->direction == UP_DIR)))
         {
-            if (player->last_direction != RIGHT_DIR)
-                player->frame = 0;
-
             al_draw_bitmap_region(
                 sprites->rockford[ROCKFORD_MOVING_RIGHT],
                 player->sourceX, player->sourceY, SPRITE_WIDTH, SPRITE_HEIGHT,
                 player->x, player->y, 0);
-
-            if (player->frame % 3 == 0)
-                player->sourceX += SPRITE_WIDTH;
-
-            player->frame++;
-
-            if (player->sourceX >= SPRITE_WIDTH * 8)
-                player->sourceX = 0;
         }
         else if (player->direction == LEFT_DIR || (player->last_direction == LEFT_DIR && (player->direction == UP_DIR || player->direction == DOWN_DIR)))
         {
-            if (player->last_direction != LEFT_DIR)
-                player->frame = 0;
-
             al_draw_bitmap_region(
                 sprites->rockford[ROCKFORD_MOVING_LEFT],
                 player->sourceX, player->sourceY, SPRITE_WIDTH, SPRITE_HEIGHT,
                 player->x, player->y, 0);
-
-            if (player->frame % 3 == 0)
-                player->sourceX += SPRITE_WIDTH;
-
-            player->frame++;
-
-            if (player->sourceX >= SPRITE_WIDTH * 8)
-                player->sourceX = 0;
         }
         else
         {
@@ -119,31 +113,12 @@ void rockford_draw(ROCKFORD *player, SPRITES *sprites)
                 0, 0, SPRITE_WIDTH, SPRITE_HEIGHT,
                 player->x, player->y, 0);
         }
-
-        // player->last_direction = player->direction;
     }
     else
     {
-        // if (player->last_direction != LEFT_DIR)
-        //     player->frame = 0;
-
         al_draw_bitmap_region(
             sprites->rockford[ROCKFORD_ANIMATED],
             player->sourceX, player->sourceY, SPRITE_WIDTH, SPRITE_HEIGHT,
             player->x, player->y, 0);
-
-        if (player->frame % 3 == 0)
-            player->sourceX += SPRITE_WIDTH;
-
-        if (player->frame % 72 == 0)
-            player->sourceY += SPRITE_HEIGHT;
-
-        player->frame++;
-
-        if (player->sourceX >= SPRITE_WIDTH * 8)
-            player->sourceX = 0;
-
-        if (player->sourceY >= SPRITE_HEIGHT * 3)
-            player->sourceY = 0;
     }
 }
