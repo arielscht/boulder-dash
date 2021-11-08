@@ -1,6 +1,5 @@
 #include <allegro5/allegro.h>
 #include "sprites.h"
-#include "constants.h"
 #include "utils.h"
 
 ALLEGRO_BITMAP *sprite_grab(int x, int y, int w, int h, ALLEGRO_BITMAP *spritesheet)
@@ -20,10 +19,10 @@ void sprites_init(SPRITES *sprites)
     sprites->rockford[ROCKFORD_MOVING_LEFT] = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 4, SPRITE_WIDTH * 8, SPRITE_HEIGHT, sprites->spritesheet);
     sprites->rockford[ROCKFORD_MOVING_RIGHT] = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 5, SPRITE_WIDTH * 8, SPRITE_HEIGHT, sprites->spritesheet);
 
-    sprites->dirt = sprite_grab(SPRITE_WIDTH * 1, SPRITE_HEIGHT * 7, 32, 32, sprites->spritesheet);
-    sprites->boulder = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 7, 32, 32, sprites->spritesheet);
-    sprites->wall = sprite_grab(SPRITE_WIDTH * 3, SPRITE_HEIGHT * 6, 32, 32, sprites->spritesheet);
-    sprites->steel_wall = sprite_grab(SPRITE_WIDTH * 1, SPRITE_HEIGHT * 6, 32, 32, sprites->spritesheet);
+    sprites->dirt = sprite_grab(SPRITE_WIDTH * 1, SPRITE_HEIGHT * 7, SPRITE_WIDTH, SPRITE_HEIGHT, sprites->spritesheet);
+    sprites->boulder = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 7, SPRITE_WIDTH, SPRITE_HEIGHT, sprites->spritesheet);
+    sprites->wall = sprite_grab(SPRITE_WIDTH * 3, SPRITE_HEIGHT * 6, SPRITE_WIDTH, SPRITE_HEIGHT, sprites->spritesheet);
+    sprites->steel_wall = sprite_grab(SPRITE_WIDTH * 1, SPRITE_HEIGHT * 6, SPRITE_WIDTH, SPRITE_HEIGHT, sprites->spritesheet);
 
     sprites->magic_wall = sprite_grab(SPRITE_WIDTH * 4, SPRITE_HEIGHT * 6, SPRITE_WIDTH * 4, SPRITE_HEIGHT, sprites->spritesheet);
     sprites->firefly = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 9, SPRITE_WIDTH * 8, SPRITE_HEIGHT, sprites->spritesheet);

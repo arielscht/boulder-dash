@@ -2,6 +2,7 @@ CFLAGS = -Wall
 
 ALLEGRO_LIBS = `pkg-config allegro-5\
 			 	allegro_image-5\
+				allegro_font-5\
 				--libs --cflags`
 
 OBJECTS = utils.o display.o sprites.o keyboard.o rockford.o ./libs/constants.h main.o

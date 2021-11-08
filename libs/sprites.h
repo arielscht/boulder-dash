@@ -1,5 +1,8 @@
 #include <allegro5/allegro.h>
 
+#ifndef __SPRITES__
+#define __SPRITES__
+
 #define SPRITE_WIDTH 32
 #define SPRITE_HEIGHT 32
 
@@ -31,6 +34,8 @@ typedef struct SPRITES
     ALLEGRO_BITMAP *exit;
 
 } SPRITES;
+
+#endif
 
 ALLEGRO_BITMAP *sprite_grab(int x, int y, int w, int h, ALLEGRO_BITMAP *spritesheet);
 
