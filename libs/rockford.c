@@ -59,12 +59,6 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard)
         player->active = false;
     }
 
-    // if (player->last_direction != player->direction)
-    // {
-    //     player->sourceX = 0;
-    //     player->sourceY = 0;
-    // }
-
     player->sourceX += SPRITE_WIDTH;
 
     if (player->sourceX >= SPRITE_WIDTH * 8)
