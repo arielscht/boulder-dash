@@ -9,7 +9,6 @@ void rockford_init(ROCKFORD *player)
 {
     player->x = 0;
     player->y = 0;
-    player->frame = 0;
     player->sourceX = 0;
     player->sourceY = 0;
     player->delay = 0;
@@ -23,7 +22,9 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard)
     player->delay++;
 
     if (player->delay % 5 != 0)
+    {
         return;
+    }
 
     player->active = true;
     if (keyboard[ALLEGRO_KEY_LEFT])
@@ -73,8 +74,8 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard)
 
     if (player->x < SPRITE_WIDTH)
         player->x = SPRITE_WIDTH;
-    if (player->y < SPRITE_HEIGHT)
-        player->y = SPRITE_HEIGHT;
+    if (player->y < SPRITE_HEIGHT * 2)
+        player->y = SPRITE_HEIGHT * 2;
 
     if (player->x >= SPRITE_MAX_X)
         player->x = SPRITE_MAX_X;

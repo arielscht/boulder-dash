@@ -5,7 +5,6 @@ typedef struct ROCKFORD
 {
     int x, y;
     int sourceX, sourceY;
-    int frame;
     int delay;
     DIRECTIONS direction;
     DIRECTIONS last_direction;
