@@ -92,6 +92,7 @@ int main()
         {
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
+            diamond_update(diamonds, entitiesQuantities.diamond);
             rockford_update(&player, key);
 
             redraw = true;

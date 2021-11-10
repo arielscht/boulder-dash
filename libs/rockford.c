@@ -27,28 +27,28 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard)
     }
 
     player->active = true;
-    if (keyboard[ALLEGRO_KEY_LEFT])
+    if (keyboard[ALLEGRO_KEY_LEFT] || keyboard[ALLEGRO_KEY_A])
     {
         player->x -= SPRITE_WIDTH;
         if (player->direction != LEFT_DIR)
             player->last_direction = player->direction;
         player->direction = LEFT_DIR;
     }
-    else if (keyboard[ALLEGRO_KEY_RIGHT])
+    else if (keyboard[ALLEGRO_KEY_RIGHT] || keyboard[ALLEGRO_KEY_D])
     {
         player->x += SPRITE_WIDTH;
         if (player->direction != RIGHT_DIR)
             player->last_direction = player->direction;
         player->direction = RIGHT_DIR;
     }
-    else if (keyboard[ALLEGRO_KEY_UP])
+    else if (keyboard[ALLEGRO_KEY_UP] || keyboard[ALLEGRO_KEY_W])
     {
         player->y -= SPRITE_HEIGHT;
         if (player->direction != UP_DIR && player->direction != DOWN_DIR)
             player->last_direction = player->direction;
         player->direction = UP_DIR;
     }
-    else if (keyboard[ALLEGRO_KEY_DOWN])
+    else if (keyboard[ALLEGRO_KEY_DOWN] || keyboard[ALLEGRO_KEY_S])
     {
         player->y += SPRITE_HEIGHT;
         if (player->direction != DOWN_DIR && player->direction != UP_DIR)
