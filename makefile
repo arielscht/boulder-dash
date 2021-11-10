@@ -5,7 +5,7 @@ ALLEGRO_LIBS = `pkg-config allegro-5\
 				allegro_font-5\
 				--libs --cflags`
 
-OBJECTS = utils.o display.o sprites.o keyboard.o rockford.o ./libs/constants.h main.o
+OBJECTS = utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o maps.o ./libs/constants.h main.o
 
 all: boulder-dash
 
@@ -29,6 +29,24 @@ keyboard.o: ./libs/keyboard.c ./libs/keyboard.h
 
 rockford.o: ./libs/rockford.c ./libs/rockford.h
 	gcc -c ./libs/rockford.c $(CFLAGS);
+
+maps.o: ./libs/maps.c ./libs/maps.h
+	gcc -c ./libs/maps.c $(CFLAGS);
+
+boulder.o: ./libs/boulder.c ./libs/boulder.h
+	gcc -c ./libs/boulder.c $(CFLAGS);
+
+dirt.o: ./libs/dirt.c ./libs/dirt.h
+	gcc -c ./libs/dirt.c $(CFLAGS);
+
+wall.o: ./libs/wall.c ./libs/wall.h
+	gcc -c ./libs/wall.c $(CFLAGS);
+
+steelWall.o: ./libs/steelWall.c ./libs/steelWall.h
+	gcc -c ./libs/steelWall.c $(CFLAGS);
+
+diamond.o: ./libs/diamond.c ./libs/diamond.h
+	gcc -c ./libs/diamond.c $(CFLAGS);
 
 constants.h: ./libs/constants.h
 

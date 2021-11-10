@@ -4,6 +4,7 @@
     "allegro_font.h": "c",
     "stdio.h": "c",
     "display.h": "c",
-    "allegro_image.h": "c"
+    "allegro_image.h": "c",
+    "boulder.h": "c"
   }
 }
