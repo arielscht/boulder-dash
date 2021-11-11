@@ -1,10 +1,11 @@
-#include <allegro5/allegro.h>
 
 #ifndef __SPRITES__
 #define __SPRITES__
 
 #define SPRITE_WIDTH 32
 #define SPRITE_HEIGHT 32
+
+#include <allegro5/allegro.h>
 
 typedef enum ROCKFORD_ANIMATION
 {

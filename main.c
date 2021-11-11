@@ -14,6 +14,7 @@
 #include "./libs/dirt.h"
 #include "./libs/wall.h"
 #include "./libs/steelWall.h"
+#include "./libs/memory_alloc.h"
 
 int main()
 {
@@ -93,6 +94,7 @@ int main()
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
             diamond_update(diamonds, entitiesQuantities.diamond);
+            dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key);
 
             redraw = true;

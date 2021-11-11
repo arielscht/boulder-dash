@@ -3,11 +3,7 @@
 
 #include <stdio.h>
 #include <allegro5/allegro.h>
-#include "boulder.h"
-#include "diamond.h"
-#include "dirt.h"
-#include "wall.h"
-#include "steelWall.h"
+#include "sprites.h"
 
 typedef enum DIRECTIONS
 {
@@ -31,20 +27,5 @@ void must_init(bool test, const char *description);
 void must_alloc(bool test, const char *description);
 
 void init_entities_count(ENTITIES_QUANTITIES *entities);
-
-void alloc_entities(
-    ENTITIES_QUANTITIES *entities,
-    BOULDER **boulders,
-    DIAMOND **diamonds,
-    DIRT **dirts,
-    STEEL_WALL **steelWalls,
-    WALL **walls);
-
-void free_entities(ENTITIES_QUANTITIES *entities,
-                   BOULDER *boulders,
-                   DIAMOND *diamonds,
-                   DIRT *dirts,
-                   STEEL_WALL *steelWalls,
-                   WALL *walls);
 
 #endif

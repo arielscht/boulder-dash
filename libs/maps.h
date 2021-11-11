@@ -22,9 +22,6 @@
 #define MAP_EXIT 'E'
 #define MAP_BLANK 'O'
 
-#define MAP_WIDTH 40
-#define MAP_HEIGHT 22
-
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH], char *mapFile, ENTITIES_QUANTITIES *entities);
 
 void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
