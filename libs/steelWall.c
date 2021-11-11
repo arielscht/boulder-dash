@@ -1,4 +1,3 @@
-#include "sprites.h"
 #include "steelWall.h"
 
 void steel_wall_draw(STEEL_WALL *walls, int wallQuantity, SPRITES *sprites)

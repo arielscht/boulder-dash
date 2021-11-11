@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include "dirt.h"
-#include "sprites.h"
 
 void dirt_draw(DIRT *dirts, int dirtQuantity, SPRITES *sprites)
 {

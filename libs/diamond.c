@@ -1,4 +1,3 @@
-#include "sprites.h"
 #include "diamond.h"
 
 void diamond_update(DIAMOND *diamonds, int diamondQuantity)

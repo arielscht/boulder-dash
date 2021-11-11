@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <allegro5/allegro.h>
 #include "utils.h"
-#include "boulder.h"
-#include "diamond.h"
-#include "dirt.h"
-#include "wall.h"
-#include "steelWall.h"
 
 void must_init(bool test, const char *description)
 {

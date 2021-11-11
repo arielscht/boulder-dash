@@ -1,4 +1,3 @@
-#include "sprites.h"
 #include "wall.h"
 
 void wall_draw(WALL *walls, int wallsQuantity, SPRITES *sprites)

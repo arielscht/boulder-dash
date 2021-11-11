@@ -1,6 +1,4 @@
-#include <allegro5/allegro.h>
 #include "display.h"
-#include "utils.h"
 
 void display_init(ALLEGRO_DISPLAY **display, ALLEGRO_BITMAP **buffer)
 {

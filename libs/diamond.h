@@ -1,7 +1,7 @@
-#include "sprites.h"
-
 #ifndef __DIAMONDS__
 #define __DIAMONDS__
+
+#include "sprites.h"
 
 typedef struct DIAMOND
 {
@@ -11,8 +11,8 @@ typedef struct DIAMOND
     bool shown;
 } DIAMOND;
 
-#endif
-
 void diamond_update(DIAMOND *diamonds, int diamondQuantity);
 
 void diamond_draw(DIAMOND *diamonds, int diamondQuantity, SPRITES *sprites);
+
+#endif

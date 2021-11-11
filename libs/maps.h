@@ -1,7 +1,13 @@
-#include "utils.h"
-
 #ifndef __MAPS__
 #define __MAPS__
+
+#include <stdio.h>
+#include "utils.h"
+#include "boulder.h"
+#include "diamond.h"
+#include "steelWall.h"
+#include "wall.h"
+#include "dirt.h"
 
 #define MAP_ROCKFORD 'R'
 #define MAP_DIRT 'I'
@@ -19,8 +25,6 @@
 #define MAP_WIDTH 40
 #define MAP_HEIGHT 22
 
-#endif
-
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH], char *mapFile, ENTITIES_QUANTITIES *entities);
 
 void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
@@ -29,3 +33,5 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
               DIRT *dirts,
               STEEL_WALL *steelWalls,
               WALL *walls);
+
+#endif

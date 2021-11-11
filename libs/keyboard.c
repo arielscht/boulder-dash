@@ -1,5 +1,3 @@
-#include <allegro5/allegro_image.h>
-#include <stdio.h>
 #include "keyboard.h"
 
 void keyboard_init(unsigned char *key)

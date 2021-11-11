@@ -1,7 +1,8 @@
-#include "sprites.h"
-
 #ifndef __DIRTS__
 #define __DIRTS__
+
+#include <stdio.h>
+#include "sprites.h"
 
 typedef struct DIRT
 {
@@ -9,6 +10,6 @@ typedef struct DIRT
     bool shown;
 } DIRT;
 
-#endif
-
 void dirt_draw(DIRT *dirts, int dirtQuantity, SPRITES *sprites);
+
+#endif

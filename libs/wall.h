@@ -1,7 +1,7 @@
-#include "sprites.h"
-
 #ifndef __WALLS__
 #define __WALLS__
+
+#include "sprites.h"
 
 typedef struct WALL
 {
@@ -9,6 +9,5 @@ typedef struct WALL
     bool shown;
 } WALL;
 
-#endif
-
 void wall_draw(WALL *walls, int wallsQuantity, SPRITES *sprites);
+#endif

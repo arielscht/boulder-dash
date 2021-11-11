@@ -1,4 +1,8 @@
+#ifndef __DISPLAY__
+#define __DISPLAY__
+
 #include <allegro5/allegro.h>
+#include "utils.h"
 
 #define BUFFER_WIDTH 1280
 #define BUFFER_HEIGHT 736
@@ -11,3 +15,5 @@ void display_init(ALLEGRO_DISPLAY **display, ALLEGRO_BITMAP **buffer);
 void display_deinit(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *buffer);
 void display_pre_draw(ALLEGRO_BITMAP *buffer);
 void display_post_draw(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *buffer);
+
+#endif

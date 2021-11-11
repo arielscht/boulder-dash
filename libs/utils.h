@@ -1,3 +1,7 @@
+#ifndef __UTILS__
+#define __UTILS__
+
+#include <stdio.h>
 #include <allegro5/allegro.h>
 #include "boulder.h"
 #include "diamond.h"
@@ -5,8 +9,6 @@
 #include "wall.h"
 #include "steelWall.h"
 
-#ifndef __UTILS__
-#define __UTILS__
 typedef enum DIRECTIONS
 {
     UP_DIR,
@@ -23,8 +25,6 @@ typedef struct ENTITIES_QUANTITIES
     int steelWall;
     int diamond;
 } ENTITIES_QUANTITIES;
-
-#endif
 
 void must_init(bool test, const char *description);
 
@@ -46,3 +46,5 @@ void free_entities(ENTITIES_QUANTITIES *entities,
                    DIRT *dirts,
                    STEEL_WALL *steelWalls,
                    WALL *walls);
+
+#endif

@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include "utils.h"
 #include "maps.h"
-#include "boulder.h"
-#include "diamond.h"
-#include "steelWall.h"
-#include "wall.h"
-#include "dirt.h"
 
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH], char *mapFileName, ENTITIES_QUANTITIES *entities)
 {
@@ -62,9 +55,6 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
     int dirtIndex = 0;
     int steelWallIndex = 0;
     int wallIndex = 0;
-
-    // dirts[0].x = 50;
-    // printf("DIRT[0].x: %d", dirts[0].x);
 
     for (int i = 0; i < MAP_HEIGHT; i++)
     {

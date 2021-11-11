@@ -1,9 +1,4 @@
-#include <allegro5/allegro.h>
 #include "rockford.h"
-#include "sprites.h"
-#include "display.h"
-#include "constants.h"
-#include "utils.h"
 
 void rockford_init(ROCKFORD *player)
 {
