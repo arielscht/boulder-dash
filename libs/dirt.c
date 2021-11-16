@@ -1,4 +1,6 @@
 #include "dirt.h"
+#include "utils.h"
+#include "constants.h"
 
 void dirt_update(DIRT *dirts, int dirtQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
 {
@@ -9,8 +11,16 @@ void dirt_update(DIRT *dirts, int dirtQuantity, ROCKFORD *player, char map[MAP_H
 
         if (player->x == dirts[i].x && player->y == dirts[i].y)
         {
-            // map[]
+            map[get_map_y_position(dirts[i].y)][get_map_x_position(dirts[i].x)] = 'O';
             dirts[i].shown = false;
+            for (int i = 0; i < MAP_HEIGHT; i++)
+            {
+                for (int j = 0; j < MAP_WIDTH; j++)
+                {
+                    printf("%c ", map[i][j]);
+                }
+                printf("\n");
+            }
         }
     }
 }

@@ -28,4 +28,8 @@ void must_alloc(bool test, const char *description);
 
 void init_entities_count(ENTITIES_QUANTITIES *entities);
 
+int get_map_x_position(int x);
+
+int get_map_y_position(int y);
+
 #endif

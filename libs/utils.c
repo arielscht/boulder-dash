@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "sprites.h"
 
 void must_init(bool test, const char *description)
 {
@@ -25,4 +26,14 @@ void init_entities_count(ENTITIES_QUANTITIES *entities)
     entities->dirt = 0;
     entities->steelWall = 0;
     entities->wall = 0;
+}
+
+int get_map_x_position(int x)
+{
+    return x / SPRITE_WIDTH;
+}
+
+int get_map_y_position(int y)
+{
+    return (y / SPRITE_HEIGHT) - 1;
 }
