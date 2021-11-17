@@ -47,15 +47,15 @@ int main()
     must_init(al_init_image_addon(), "image addon");
     sprites_init(&sprites);
 
-    //PLAYER
-    ROCKFORD player;
-    rockford_init(&player);
-
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     ENTITIES_QUANTITIES entitiesQuantities;
     init_entities_count(&entitiesQuantities);
     read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities);
+
+    //PLAYER
+    ROCKFORD player;
+    rockford_init(&player, loadedMap);
 
     //ENTITIES
     BOULDER *boulders = NULL;
@@ -93,9 +93,11 @@ int main()
         {
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
+            boulder_update(boulders, entitiesQuantities.boulder, loadedMap);
             diamond_update(diamonds, entitiesQuantities.diamond);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
-            rockford_update(&player, key);
+            rockford_update(&player, key, loadedMap);
+            print_map(loadedMap);
 
             redraw = true;
             break;
