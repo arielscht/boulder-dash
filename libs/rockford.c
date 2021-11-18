@@ -59,10 +59,10 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
         {
             rockford_update_map(player->x, player->y, player->x - SPRITE_WIDTH, player->y, map);
             player->x -= SPRITE_WIDTH;
-            if (player->direction != LEFT_DIR)
-                player->last_direction = player->direction;
-            player->direction = LEFT_DIR;
         }
+        if (player->direction != LEFT_DIR)
+            player->last_direction = player->direction;
+        player->direction = LEFT_DIR;
     }
     else if (keyboard[ALLEGRO_KEY_RIGHT] || keyboard[ALLEGRO_KEY_D])
     {
@@ -70,10 +70,10 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
         {
             rockford_update_map(player->x, player->y, player->x + SPRITE_WIDTH, player->y, map);
             player->x += SPRITE_WIDTH;
-            if (player->direction != RIGHT_DIR)
-                player->last_direction = player->direction;
-            player->direction = RIGHT_DIR;
         }
+        if (player->direction != RIGHT_DIR)
+            player->last_direction = player->direction;
+        player->direction = RIGHT_DIR;
     }
     else if (keyboard[ALLEGRO_KEY_UP] || keyboard[ALLEGRO_KEY_W])
     {
@@ -81,10 +81,10 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
         {
             rockford_update_map(player->x, player->y, player->x, player->y - SPRITE_HEIGHT, map);
             player->y -= SPRITE_HEIGHT;
-            if (player->direction != UP_DIR && player->direction != DOWN_DIR)
-                player->last_direction = player->direction;
-            player->direction = UP_DIR;
         }
+        if (player->direction != UP_DIR && player->direction != DOWN_DIR)
+            player->last_direction = player->direction;
+        player->direction = UP_DIR;
     }
     else if (keyboard[ALLEGRO_KEY_DOWN] || keyboard[ALLEGRO_KEY_S])
     {
@@ -92,10 +92,10 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
         {
             rockford_update_map(player->x, player->y, player->x, player->y + SPRITE_HEIGHT, map);
             player->y += SPRITE_HEIGHT;
-            if (player->direction != DOWN_DIR && player->direction != UP_DIR)
-                player->last_direction = player->direction;
-            player->direction = DOWN_DIR;
         }
+        if (player->direction != DOWN_DIR && player->direction != UP_DIR)
+            player->last_direction = player->direction;
+        player->direction = DOWN_DIR;
     }
     else
     {

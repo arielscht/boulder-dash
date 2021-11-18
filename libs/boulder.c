@@ -16,7 +16,7 @@ void boulder_falling(BOULDER *boulder, char map[MAP_HEIGHT][MAP_WIDTH])
         map[y + 1][x] = MAP_BOULDER;
         boulder->y += SPRITE_WIDTH;
     }
-    else if (map[y + 1][x] == MAP_BOULDER || map[y + 1][x] == MAP_DIAMOND)
+    else if (map[y + 1][x] == MAP_BOULDER || map[y + 1][x] == MAP_DIAMOND || map[y + 1][x] == MAP_WALL)
     {
         if (map[y][x - 1] == MAP_BLANK &&
             map[y + 1][x - 1] == MAP_BLANK)
