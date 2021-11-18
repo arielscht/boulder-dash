@@ -3,6 +3,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include "./libs/display.h"
 #include "./libs/utils.h"
 #include "./libs/keyboard.h"
@@ -21,6 +22,8 @@ int main()
     //INITIALIZERS
     must_init(al_init(), "allegro");
     must_init(al_install_keyboard(), "keyboard");
+    must_init(al_init_font_addon(), "font addon");
+    must_init(al_init_ttf_addon(), "ttf addon");
 
     //TIMER AND QUEUE
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
@@ -35,7 +38,8 @@ int main()
     display_init(&display, &buffer);
 
     //FONT
-    ALLEGRO_FONT *font = al_create_builtin_font();
+    // ALLEGRO_FONT *font = al_create_builtin_font();
+    ALLEGRO_FONT *font = al_load_ttf_font("./resources/boulder-dash.ttf", 50, 0);
     must_init(font, "font");
 
     //KEYBOARD
@@ -94,7 +98,7 @@ int main()
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
             boulder_update(boulders, entitiesQuantities.boulder, loadedMap);
-            diamond_update(diamonds, entitiesQuantities.diamond, loadedMap);
+            diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap);
             print_map(loadedMap);
@@ -114,7 +118,8 @@ int main()
         {
             display_pre_draw(buffer);
             al_clear_to_color(al_map_rgb(0, 0, 0));
-            al_draw_textf(font, al_map_rgb(255, 255, 255), 0, 0, 0, "X: %d Y:%d", player.x, player.y);
+            al_draw_textf(font, al_map_rgb(255, 255, 255), 0, -8, 0, "X: %d Y:%d", player.x, player.y);
+            al_draw_textf(font, al_map_rgb(255, 255, 255), 900, -8, 0, "%06d", player.score);
 
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);
@@ -132,6 +137,7 @@ int main()
     display_deinit(display, buffer);
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);
+    al_destroy_font(font);
 
     free_entities(&entitiesQuantities, boulders, diamonds, dirts, steelWalls, walls);
 

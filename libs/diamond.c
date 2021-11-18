@@ -52,7 +52,7 @@ void diamond_falling(DIAMOND *diamond, char map[MAP_HEIGHT][MAP_WIDTH])
     }
 }
 
-void diamond_update(DIAMOND *diamonds, int diamondQuantity, char map[MAP_HEIGHT][MAP_WIDTH])
+void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     for (int i = 0; i < diamondQuantity; i++)
     {
@@ -65,6 +65,12 @@ void diamond_update(DIAMOND *diamonds, int diamondQuantity, char map[MAP_HEIGHT]
             continue;
 
         diamond_falling(&diamonds[i], map);
+
+        if (player->x == diamonds[i].x && player->y == diamonds[i].y)
+        {
+            diamonds[i].shown = false;
+            player->score += DIAMOND_SCORE;
+        }
 
         diamonds[i].sourceX += SPRITE_WIDTH;
 

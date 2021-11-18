@@ -3,6 +3,7 @@
 
 #include "sprites.h"
 #include "constants.h"
+#include "rockford.h"
 
 typedef struct DIAMOND
 {
@@ -12,7 +13,7 @@ typedef struct DIAMOND
     bool shown, falling;
 } DIAMOND;
 
-void diamond_update(DIAMOND *diamonds, int diamondQuantity, char map[MAP_HEIGHT][MAP_WIDTH]);
+void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
 
 void diamond_draw(DIAMOND *diamonds, int diamondQuantity, SPRITES *sprites);
 

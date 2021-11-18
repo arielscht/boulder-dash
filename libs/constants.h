@@ -23,4 +23,6 @@
 #define MAP_EXIT 'E'
 #define MAP_BLANK 'O'
 
+#define DIAMOND_SCORE 15
+
 #endif
