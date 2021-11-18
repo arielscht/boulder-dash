@@ -17,6 +17,7 @@ void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
     player->sourceX = 0;
     player->sourceY = 0;
     player->delay = 0;
+    player->score = 0;
     player->active = false;
     player->direction = UP_DIR;
     player->last_direction = UP_DIR;

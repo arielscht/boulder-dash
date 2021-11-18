@@ -10,6 +10,7 @@ typedef struct BOULDER
 {
     int x, y;
     int delay;
+    bool falling;
 } BOULDER;
 
 void boulder_update(BOULDER *boulders, int boulderQuantity, char map[MAP_HEIGHT][MAP_WIDTH]);

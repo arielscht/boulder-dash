@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include "sprites.h"
+#include "constants.h"
 
 typedef enum DIRECTIONS
 {

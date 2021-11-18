@@ -73,6 +73,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
             case MAP_BOULDER:
                 boulders[boulderIndex].x = SPRITE_WIDTH * j;
                 boulders[boulderIndex].y = SPRITE_HEIGHT * (i + 1);
+                boulders[boulderIndex].falling = false;
                 boulderIndex++;
                 break;
             case MAP_DIAMOND:
@@ -82,6 +83,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
                 diamonds[diamondIndex].sourceX = 0;
                 diamonds[diamondIndex].sourceY = 0;
                 diamonds[diamondIndex].delay = 0;
+                diamonds[diamondIndex].falling = false;
                 diamondIndex++;
                 break;
             case MAP_STEEL_WALL:

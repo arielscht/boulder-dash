@@ -1,6 +1,58 @@
 #include "diamond.h"
 
-void diamond_update(DIAMOND *diamonds, int diamondQuantity)
+void diamond_falling(DIAMOND *diamond, char map[MAP_HEIGHT][MAP_WIDTH])
+{
+    int x = get_map_x_position(diamond->x);
+    int y = get_map_y_position(diamond->y);
+
+    if (map[y + 1][x] == MAP_BLANK)
+    {
+        if (!diamond->falling)
+        {
+            diamond->falling = true;
+            return;
+        }
+        map[y][x] = MAP_BLANK;
+        map[y + 1][x] = MAP_DIAMOND;
+        diamond->y += SPRITE_WIDTH;
+    }
+    else if (map[y + 1][x] == MAP_BOULDER || map[y + 1][x] == MAP_DIAMOND)
+    {
+        if (map[y][x - 1] == MAP_BLANK &&
+            map[y + 1][x - 1] == MAP_BLANK)
+        {
+            if (!diamond->falling)
+            {
+                diamond->falling = true;
+                return;
+            }
+            map[y][x] = MAP_BLANK;
+            map[y][x - 1] = MAP_DIAMOND;
+            diamond->x -= SPRITE_WIDTH;
+        }
+        else if (map[y][x + 1] == MAP_BLANK && map[y + 1][x + 1] == MAP_BLANK)
+        {
+            if (!diamond->falling)
+            {
+                diamond->falling = true;
+                return;
+            }
+            map[y][x] = MAP_BLANK;
+            map[y][x + 1] = MAP_DIAMOND;
+            diamond->x += SPRITE_WIDTH;
+        }
+        else
+        {
+            diamond->falling = false;
+        }
+    }
+    else
+    {
+        diamond->falling = false;
+    }
+}
+
+void diamond_update(DIAMOND *diamonds, int diamondQuantity, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     for (int i = 0; i < diamondQuantity; i++)
     {
@@ -11,6 +63,8 @@ void diamond_update(DIAMOND *diamonds, int diamondQuantity)
 
         if (diamonds[i].delay % 5 != 0)
             continue;
+
+        diamond_falling(&diamonds[i], map);
 
         diamonds[i].sourceX += SPRITE_WIDTH;
 

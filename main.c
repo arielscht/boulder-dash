@@ -94,7 +94,7 @@ int main()
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
             boulder_update(boulders, entitiesQuantities.boulder, loadedMap);
-            diamond_update(diamonds, entitiesQuantities.diamond);
+            diamond_update(diamonds, entitiesQuantities.diamond, loadedMap);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap);
             print_map(loadedMap);

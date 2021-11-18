@@ -12,6 +12,7 @@ typedef struct ROCKFORD
     int x, y;
     int sourceX, sourceY;
     int delay;
+    int score;
     DIRECTIONS direction;
     DIRECTIONS last_direction;
     bool active;
