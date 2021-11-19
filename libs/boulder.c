@@ -98,6 +98,9 @@ void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, ch
 {
     for (int i = 0; i < boulderQuantity; i++)
     {
+        if (!boulders[i].shown)
+            continue;
+
         boulders[i].delay++;
 
         if (boulders[i].delay % 5 != 0)

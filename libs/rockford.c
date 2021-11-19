@@ -62,6 +62,10 @@ bool is_allowed_to_move(char mapItem)
 
 void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH], EXPLOSION *explosions)
 {
+
+    if (!player->alive && player->exploded)
+        return;
+
     player->delay++;
 
     if (player->delay % 5 != 0)
