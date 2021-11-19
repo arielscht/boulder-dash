@@ -19,8 +19,25 @@ void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
     player->delay = 0;
     player->score = 0;
     player->active = false;
+    player->alive = true;
+    player->exploded = false;
     player->direction = UP_DIR;
     player->last_direction = UP_DIR;
+}
+
+void rockford_explode(ROCKFORD *player, EXPLOSION *explosions)
+{
+    player->exploded = true;
+
+    explosion_add(player->x - SPRITE_WIDTH, player->y - SPRITE_HEIGHT, explosions);
+    explosion_add(player->x, player->y - SPRITE_HEIGHT, explosions);
+    explosion_add(player->x + SPRITE_WIDTH, player->y - SPRITE_HEIGHT, explosions);
+    explosion_add(player->x - SPRITE_WIDTH, player->y, explosions);
+    explosion_add(player->x, player->y, explosions);
+    explosion_add(player->x + SPRITE_WIDTH, player->y, explosions);
+    explosion_add(player->x - SPRITE_WIDTH, player->y + SPRITE_HEIGHT, explosions);
+    explosion_add(player->x, player->y + SPRITE_HEIGHT, explosions);
+    explosion_add(player->x + SPRITE_WIDTH, player->y + SPRITE_HEIGHT, explosions);
 }
 
 void rockford_update_map(int previousX, int previousY, int x, int y, char map[MAP_HEIGHT][MAP_WIDTH])
@@ -43,7 +60,7 @@ bool is_allowed_to_move(char mapItem)
     return false;
 }
 
-void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH])
+void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH], EXPLOSION *explosions)
 {
     player->delay++;
 
@@ -123,10 +140,23 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
         player->x = SPRITE_MAX_X;
     if (player->y >= SPRITE_MAX_Y)
         player->y = SPRITE_MAX_Y;
+
+    if (!player->alive)
+    {
+        if (!player->exploded)
+        {
+            rockford_explode(player, explosions);
+            player->exploded = true;
+        }
+        return;
+    }
 }
 
 void rockford_draw(ROCKFORD *player, SPRITES *sprites)
 {
+    if (!player->alive)
+        return;
+
     if (player->active)
     {
         if (player->direction == RIGHT_DIR || (player->last_direction == RIGHT_DIR && (player->direction == DOWN_DIR || player->direction == UP_DIR)))

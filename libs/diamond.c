@@ -1,6 +1,6 @@
 #include "diamond.h"
 
-void diamond_falling(DIAMOND *diamond, char map[MAP_HEIGHT][MAP_WIDTH])
+void diamond_falling(DIAMOND *diamond, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     int x = get_map_x_position(diamond->x);
     int y = get_map_y_position(diamond->y);
@@ -46,6 +46,10 @@ void diamond_falling(DIAMOND *diamond, char map[MAP_HEIGHT][MAP_WIDTH])
             diamond->falling = false;
         }
     }
+    else if (diamond->falling && map[y + 1][x] == MAP_ROCKFORD)
+    {
+        player->alive = false;
+    }
     else
     {
         diamond->falling = false;
@@ -64,7 +68,7 @@ void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, ch
         if (diamonds[i].delay % 5 != 0)
             continue;
 
-        diamond_falling(&diamonds[i], map);
+        diamond_falling(&diamonds[i], player, map);
 
         if (player->x == diamonds[i].x && player->y == diamonds[i].y)
         {

@@ -13,6 +13,7 @@ typedef struct BOULDER
     int delay;
     bool falling;
     int pushed;
+    bool shown;
 } BOULDER;
 
 void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);

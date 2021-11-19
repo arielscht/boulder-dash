@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "display.h"
 #include "constants.h"
+#include "explosion.h"
 
 typedef struct ROCKFORD
 {
@@ -15,11 +16,13 @@ typedef struct ROCKFORD
     int score;
     DIRECTIONS direction;
     DIRECTIONS last_direction;
+    bool alive;
+    bool exploded;
     bool active;
 } ROCKFORD;
 
 void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
-void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH]);
+void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH], EXPLOSION *explosions);
 void rockford_draw(ROCKFORD *player, SPRITES *sprites);
 
 #endif

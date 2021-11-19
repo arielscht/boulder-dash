@@ -1,6 +1,6 @@
 #include "boulder.h"
 
-void boulder_falling(BOULDER *boulder, int x, int y, char map[MAP_HEIGHT][MAP_WIDTH])
+void boulder_falling(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
 {
 
     if (map[y + 1][x] == MAP_BLANK)
@@ -43,6 +43,10 @@ void boulder_falling(BOULDER *boulder, int x, int y, char map[MAP_HEIGHT][MAP_WI
         {
             boulder->falling = false;
         }
+    }
+    else if (boulder->falling && map[y + 1][x] == MAP_ROCKFORD)
+    {
+        player->alive = false;
     }
     else
     {
@@ -102,38 +106,22 @@ void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, ch
         int boulderX = get_map_x_position(boulders[i].x);
         int boulderY = get_map_y_position(boulders[i].y);
 
-        //     if (player->x == boulders[i].x - SPRITE_WIDTH &&
-        //         player->y == boulders[i].y &&
-        //         player->direction == RIGHT_DIR &&
-        //         map[get_map_y_position(boulders[i].y)][get_map_x_position(boulders[i].x) + 1] == MAP_BLANK)
-        //     {
-        //         boulders[i].pushed++;
-        //         if (boulders[i].pushed % 10 == 0)
-        //         {
-        //             boulders[i].x += SPRITE_WIDTH;
-        //             player->x += SPRITE_WIDTH;
-        //             map[boulderY][boulderX - 1] = MAP_BLANK;
-        //             map[boulderY][boulderX] = MAP_ROCKFORD;
-        //             map[boulderY][boulderX + 1] = MAP_BOULDER;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         boulders[i].pushed = 0;
-        //     }
-
         boulder_pushed(&boulders[i], boulderX, boulderY, player, map);
-
-        boulder_falling(&boulders[i], boulderX, boulderY, map);
+        boulder_falling(&boulders[i], boulderX, boulderY, player, map);
     }
 }
 
 void boulder_draw(BOULDER *boulders, int boulderQuantity, SPRITES *sprites)
 {
     for (int i = 0; i < boulderQuantity; i++)
+    {
+        if (!boulders[i].shown)
+            continue;
+
         al_draw_bitmap(
             sprites->boulder,
             boulders[i].x,
             boulders[i].y,
             0);
+    }
 }

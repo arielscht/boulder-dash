@@ -75,6 +75,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
                 boulders[boulderIndex].y = SPRITE_HEIGHT * (i + 1);
                 boulders[boulderIndex].falling = false;
                 boulders[boulderIndex].pushed = 0;
+                boulders[boulderIndex].shown = true;
                 boulderIndex++;
                 break;
             case MAP_DIAMOND:

@@ -19,6 +19,7 @@ void explosion_add(int x, int y, EXPLOSION *explosions)
         explosions[i].sourceX = 0;
         explosions[i].delay = 0;
         explosions[i].sprite_dir = 1;
+        return;
     }
 }
 
