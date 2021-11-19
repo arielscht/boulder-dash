@@ -16,6 +16,7 @@
 #include "./libs/wall.h"
 #include "./libs/steelWall.h"
 #include "./libs/memory_alloc.h"
+#include "./libs/explosion.h"
 
 int main()
 {
@@ -50,6 +51,10 @@ int main()
     SPRITES sprites;
     must_init(al_init_image_addon(), "image addon");
     sprites_init(&sprites);
+
+    //EXPLOSIONS
+    EXPLOSION explosions[MAX_EXPLOSIONS];
+    explosion_init(explosions);
 
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
@@ -97,11 +102,15 @@ int main()
         {
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
+            explosion_update(explosions);
             boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap);
             diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap);
-            print_map(loadedMap);
+            // print_map(loadedMap);
+
+            if (key[ALLEGRO_KEY_ESCAPE])
+                done = true;
 
             redraw = true;
             break;
@@ -127,6 +136,7 @@ int main()
             boulder_draw(boulders, entitiesQuantities.boulder, &sprites);
             diamond_draw(diamonds, entitiesQuantities.diamond, &sprites);
             rockford_draw(&player, &sprites);
+            explosion_draw(explosions, &sprites);
 
             display_post_draw(display, buffer);
             redraw = false;

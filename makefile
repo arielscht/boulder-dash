@@ -6,7 +6,7 @@ ALLEGRO_LIBS = `pkg-config allegro-5\
 				allegro_ttf-5\
 				--libs --cflags`
 
-OBJECTS = utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o maps.o ./libs/constants.h main.o
+OBJECTS = utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o ./libs/constants.h main.o
 
 all: boulder-dash
 
@@ -48,6 +48,9 @@ steelWall.o: ./libs/steelWall.c ./libs/steelWall.h
 
 diamond.o: ./libs/diamond.c ./libs/diamond.h
 	gcc -c ./libs/diamond.c $(CFLAGS);
+	
+explosion.o: ./libs/explosion.c ./libs/explosion.h
+	gcc -c ./libs/explosion.c $(CFLAGS);
 
 constants.h: ./libs/constants.h
 

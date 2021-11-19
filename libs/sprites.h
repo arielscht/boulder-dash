@@ -34,6 +34,7 @@ typedef struct SPRITES
     ALLEGRO_BITMAP *diamond;
     ALLEGRO_BITMAP *exit;
 
+    ALLEGRO_BITMAP *explosion;
 } SPRITES;
 
 #endif

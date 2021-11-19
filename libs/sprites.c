@@ -30,6 +30,7 @@ void sprites_init(SPRITES *sprites)
     sprites->amoeba = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 8, SPRITE_WIDTH * 8, SPRITE_HEIGHT, sprites->spritesheet);
     sprites->diamond = sprite_grab(SPRITE_WIDTH * 0, SPRITE_HEIGHT * 10, SPRITE_WIDTH * 8, SPRITE_HEIGHT, sprites->spritesheet);
     sprites->exit = sprite_grab(SPRITE_WIDTH * 1, SPRITE_HEIGHT * 6, SPRITE_WIDTH * 2, SPRITE_HEIGHT, sprites->spritesheet);
+    sprites->explosion = sprite_grab(SPRITE_WIDTH * 3, SPRITE_HEIGHT * 7, SPRITE_WIDTH * 3, SPRITE_HEIGHT, sprites->spritesheet);
 }
 
 void sprites_deinit(SPRITES *sprites)
@@ -50,4 +51,5 @@ void sprites_deinit(SPRITES *sprites)
     al_destroy_bitmap(sprites->amoeba);
     al_destroy_bitmap(sprites->diamond);
     al_destroy_bitmap(sprites->exit);
+    al_destroy_bitmap(sprites->explosion);
 }
