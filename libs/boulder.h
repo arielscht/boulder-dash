@@ -5,15 +5,17 @@
 #include "sprites.h"
 #include "constants.h"
 #include "utils.h"
+#include "rockford.h"
 
 typedef struct BOULDER
 {
     int x, y;
     int delay;
     bool falling;
+    int pushed;
 } BOULDER;
 
-void boulder_update(BOULDER *boulders, int boulderQuantity, char map[MAP_HEIGHT][MAP_WIDTH]);
+void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
 
 void boulder_draw(BOULDER *boulders, int boulderQuantity, SPRITES *sprites);
 

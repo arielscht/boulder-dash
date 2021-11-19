@@ -1,9 +1,7 @@
 #include "boulder.h"
 
-void boulder_falling(BOULDER *boulder, char map[MAP_HEIGHT][MAP_WIDTH])
+void boulder_falling(BOULDER *boulder, int x, int y, char map[MAP_HEIGHT][MAP_WIDTH])
 {
-    int x = get_map_x_position(boulder->x);
-    int y = get_map_y_position(boulder->y);
 
     if (map[y + 1][x] == MAP_BLANK)
     {
@@ -52,7 +50,47 @@ void boulder_falling(BOULDER *boulder, char map[MAP_HEIGHT][MAP_WIDTH])
     }
 }
 
-void boulder_update(BOULDER *boulders, int boulderQuantity, char map[MAP_HEIGHT][MAP_WIDTH])
+void boulder_pushed(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+{
+    if (player->active &&
+        player->x == boulder->x - SPRITE_WIDTH &&
+        player->y == boulder->y &&
+        player->direction == RIGHT_DIR &&
+        map[get_map_y_position(boulder->y)][get_map_x_position(boulder->x) + 1] == MAP_BLANK)
+    {
+        boulder->pushed++;
+        if (boulder->pushed % 10 == 0)
+        {
+            boulder->x += SPRITE_WIDTH;
+            player->x += SPRITE_WIDTH;
+            map[y][x - 1] = MAP_BLANK;
+            map[y][x] = MAP_ROCKFORD;
+            map[y][x + 1] = MAP_BOULDER;
+        }
+    }
+    else if (player->active &&
+             player->x == boulder->x + SPRITE_WIDTH &&
+             player->y == boulder->y &&
+             player->direction == LEFT_DIR &&
+             map[get_map_y_position(boulder->y)][get_map_x_position(boulder->x) - 1] == MAP_BLANK)
+    {
+        boulder->pushed++;
+        if (boulder->pushed % 10 == 0)
+        {
+            boulder->x -= SPRITE_WIDTH;
+            player->x -= SPRITE_WIDTH;
+            map[y][x + 1] = MAP_BLANK;
+            map[y][x] = MAP_ROCKFORD;
+            map[y][x - 1] = MAP_BOULDER;
+        }
+    }
+    else
+    {
+        boulder->pushed = 0;
+    }
+}
+
+void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     for (int i = 0; i < boulderQuantity; i++)
     {
@@ -61,7 +99,32 @@ void boulder_update(BOULDER *boulders, int boulderQuantity, char map[MAP_HEIGHT]
         if (boulders[i].delay % 5 != 0)
             continue;
 
-        boulder_falling(&boulders[i], map);
+        int boulderX = get_map_x_position(boulders[i].x);
+        int boulderY = get_map_y_position(boulders[i].y);
+
+        //     if (player->x == boulders[i].x - SPRITE_WIDTH &&
+        //         player->y == boulders[i].y &&
+        //         player->direction == RIGHT_DIR &&
+        //         map[get_map_y_position(boulders[i].y)][get_map_x_position(boulders[i].x) + 1] == MAP_BLANK)
+        //     {
+        //         boulders[i].pushed++;
+        //         if (boulders[i].pushed % 10 == 0)
+        //         {
+        //             boulders[i].x += SPRITE_WIDTH;
+        //             player->x += SPRITE_WIDTH;
+        //             map[boulderY][boulderX - 1] = MAP_BLANK;
+        //             map[boulderY][boulderX] = MAP_ROCKFORD;
+        //             map[boulderY][boulderX + 1] = MAP_BOULDER;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         boulders[i].pushed = 0;
+        //     }
+
+        boulder_pushed(&boulders[i], boulderX, boulderY, player, map);
+
+        boulder_falling(&boulders[i], boulderX, boulderY, map);
     }
 }
 
