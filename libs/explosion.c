@@ -23,7 +23,7 @@ void explosion_add(int x, int y, EXPLOSION *explosions)
     }
 }
 
-void explosion_update(EXPLOSION *explosions)
+void explosion_update(EXPLOSION *explosions, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     for (int i = 0; i < MAX_EXPLOSIONS; i++)
     {
@@ -47,6 +47,9 @@ void explosion_update(EXPLOSION *explosions)
 
         if (explosions[i].delay % 25 == 0)
         {
+            int mapX = get_map_x_position(explosions[i].x);
+            int mapY = get_map_y_position(explosions[i].y);
+            map[mapY][mapX] = MAP_BLANK;
             explosions[i].used = false;
         }
     }
@@ -70,3 +73,33 @@ void explosion_draw(EXPLOSION *explosions, SPRITES *sprites)
             0);
     }
 };
+
+void explode_map_area(EXPLOSION *explosions,
+                      int centerX,
+                      int centerY,
+                      char map[MAP_HEIGHT][MAP_WIDTH])
+{
+    int initX = centerX - SPRITE_WIDTH;
+    int initY = centerY - SPRITE_WIDTH;
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            int explosionX = initX + (SPRITE_WIDTH * j);
+            int explosionY = initY + (SPRITE_HEIGHT * i);
+
+            int mapX = get_map_x_position(explosionX);
+            int mapY = get_map_y_position(explosionY);
+
+            //Check because steel walls do not explode
+            if (map[mapY][mapX] != MAP_STEEL_WALL)
+            {
+                explosion_add(
+                    explosionX,
+                    explosionY,
+                    explosions);
+            }
+        }
+    }
+}

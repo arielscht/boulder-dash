@@ -25,21 +25,6 @@ void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
     player->last_direction = UP_DIR;
 }
 
-void rockford_explode(ROCKFORD *player, EXPLOSION *explosions)
-{
-    player->exploded = true;
-
-    explosion_add(player->x - SPRITE_WIDTH, player->y - SPRITE_HEIGHT, explosions);
-    explosion_add(player->x, player->y - SPRITE_HEIGHT, explosions);
-    explosion_add(player->x + SPRITE_WIDTH, player->y - SPRITE_HEIGHT, explosions);
-    explosion_add(player->x - SPRITE_WIDTH, player->y, explosions);
-    explosion_add(player->x, player->y, explosions);
-    explosion_add(player->x + SPRITE_WIDTH, player->y, explosions);
-    explosion_add(player->x - SPRITE_WIDTH, player->y + SPRITE_HEIGHT, explosions);
-    explosion_add(player->x, player->y + SPRITE_HEIGHT, explosions);
-    explosion_add(player->x + SPRITE_WIDTH, player->y + SPRITE_HEIGHT, explosions);
-}
-
 void rockford_update_map(int previousX, int previousY, int x, int y, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     map[get_map_y_position(previousY)][get_map_x_position(previousX)] = MAP_BLANK;
@@ -149,8 +134,8 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
     {
         if (!player->exploded)
         {
-            rockford_explode(player, explosions);
             player->exploded = true;
+            explode_map_area(explosions, player->x, player->y, map);
         }
         return;
     }

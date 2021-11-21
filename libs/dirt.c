@@ -9,6 +9,15 @@ void dirt_update(DIRT *dirts, int dirtQuantity, ROCKFORD *player, char map[MAP_H
         if (!dirts[i].shown)
             continue;
 
+        int dirtX = get_map_x_position(dirts[i].x);
+        int dirtY = get_map_y_position(dirts[i].y);
+
+        if (map[dirtY][dirtX] == MAP_BLANK)
+        {
+            dirts[i].shown = false;
+            return;
+        }
+
         if (player->x == dirts[i].x && player->y == dirts[i].y)
         {
             dirts[i].shown = false;
