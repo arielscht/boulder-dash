@@ -122,16 +122,6 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
     if (player->sourceY >= SPRITE_HEIGHT * 3 || player->active)
         player->sourceY = 0;
 
-    if (player->x < SPRITE_WIDTH)
-        player->x = SPRITE_WIDTH;
-    if (player->y < SPRITE_HEIGHT * 2)
-        player->y = SPRITE_HEIGHT * 2;
-
-    if (player->x >= SPRITE_MAX_X)
-        player->x = SPRITE_MAX_X;
-    if (player->y >= SPRITE_MAX_Y)
-        player->y = SPRITE_MAX_Y;
-
     if (!player->alive)
     {
         if (!player->exploded)
