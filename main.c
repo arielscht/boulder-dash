@@ -61,10 +61,11 @@ int main()
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     int diamondsToWin;
+    int scorePerDiamond;
     int mapBlinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
     init_entities_count(&entitiesQuantities);
-    read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities, &diamondsToWin);
+    read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities, &diamondsToWin, &scorePerDiamond);
 
     //PLAYER
     ROCKFORD player;
@@ -88,6 +89,7 @@ int main()
     printf("STEEL WALL QUANTITY: %d\n", entitiesQuantities.steelWall);
     printf("WALL QUANTITY: %d\n", entitiesQuantities.wall);
     printf("DIAMONDS TO WIN: %d\n", diamondsToWin);
+    printf("SCORE PER DIAMOND: %d\n", scorePerDiamond);
 
     init_map(loadedMap, boulders, diamonds, dirts, steelWalls, walls, &exits[1]);
 
@@ -113,7 +115,7 @@ int main()
             explosion_update(explosions, loadedMap);
             wall_update(walls, entitiesQuantities.wall, loadedMap);
             boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap);
-            diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap);
+            diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap, explosions);
             rockford_entrance_update(&exits[0], &player);
@@ -149,7 +151,7 @@ int main()
 
             // al_draw_textf(font, al_map_rgb(255, 255, 255), 0, -8, 0, "X: %d Y:%d", player.x, player.y);
 
-            hud_draw(font, &player, diamondsToWin);
+            hud_draw(font, &player, diamondsToWin, scorePerDiamond);
 
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);

@@ -53,7 +53,11 @@ void diamond_falling(DIAMOND *diamond, int x, int y, ROCKFORD *player, char map[
     }
 }
 
-void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+void diamond_update(DIAMOND *diamonds,
+                    int diamondQuantity,
+                    ROCKFORD *player,
+                    char map[MAP_HEIGHT][MAP_WIDTH],
+                    int scorePerDiamond)
 {
     for (int i = 0; i < diamondQuantity; i++)
     {
@@ -80,7 +84,7 @@ void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, ch
         {
             diamonds[i].shown = false;
             player->diamondsObtained++;
-            player->score += DIAMOND_SCORE;
+            player->score += scorePerDiamond;
         }
 
         diamonds[i].sourceX += SPRITE_WIDTH;

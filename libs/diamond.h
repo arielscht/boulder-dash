@@ -13,7 +13,11 @@ typedef struct DIAMOND
     bool shown, falling;
 } DIAMOND;
 
-void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
+void diamond_update(DIAMOND *diamonds,
+                    int diamondQuantity,
+                    ROCKFORD *player,
+                    char map[MAP_HEIGHT][MAP_WIDTH],
+                    int scorePerDiamond);
 
 void diamond_draw(DIAMOND *diamonds, int diamondQuantity, SPRITES *sprites);
 

@@ -5,6 +5,6 @@
 #include <allegro5/allegro_font.h>
 #include "rockford.h"
 
-void hud_draw(ALLEGRO_FONT *font, ROCKFORD *player, int diamondsToWin);
+void hud_draw(ALLEGRO_FONT *font, ROCKFORD *player, int diamondsToWin, int scorePerDiamond);
 
 #endif
