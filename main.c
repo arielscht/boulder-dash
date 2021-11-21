@@ -18,6 +18,7 @@
 #include "./libs/memory_alloc.h"
 #include "./libs/explosion.h"
 #include "./libs/exit.h"
+#include "./libs/hud.h"
 
 int main()
 {
@@ -146,8 +147,9 @@ int main()
                 al_clear_to_color(al_map_rgb(255, 255, 255));
             }
 
-            al_draw_textf(font, al_map_rgb(255, 255, 255), 0, -8, 0, "X: %d Y:%d", player.x, player.y);
-            al_draw_textf(font, al_map_rgb(255, 255, 255), 900, -8, 0, "%06d", player.score);
+            // al_draw_textf(font, al_map_rgb(255, 255, 255), 0, -8, 0, "X: %d Y:%d", player.x, player.y);
+
+            hud_draw(font, &player, diamondsToWin);
 
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);
