@@ -19,6 +19,7 @@ void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
     player->delay = 0;
     player->score = 0;
     player->active = false;
+    player->entering = true;
     player->alive = true;
     player->exploded = false;
     player->direction = UP_DIR;
@@ -48,7 +49,7 @@ bool is_allowed_to_move(char mapItem)
 void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH], EXPLOSION *explosions)
 {
 
-    if (!player->alive && player->exploded)
+    if ((!player->alive && player->exploded) || player->entering)
         return;
 
     player->delay++;
@@ -176,5 +177,36 @@ void rockford_draw(ROCKFORD *player, SPRITES *sprites)
             sprites->rockford[ROCKFORD_ANIMATED],
             player->sourceX, player->sourceY, SPRITE_WIDTH, SPRITE_HEIGHT,
             player->x, player->y, 0);
+    }
+}
+
+void rockford_entrance_init(ROCKFORD *player, EXIT *entrance)
+{
+    entrance->x = player->x;
+    entrance->y = player->y;
+    entrance->shown = true;
+    entrance->delay = 0;
+    entrance->sourceX = 0;
+}
+
+void rockford_entrance_update(EXIT *entrance, ROCKFORD *player)
+{
+    if (!entrance->shown)
+        return;
+
+    entrance->delay++;
+
+    if (entrance->delay % 20 != 0)
+        return;
+
+    entrance->sourceX += SPRITE_WIDTH;
+
+    if (entrance->sourceX == SPRITE_WIDTH * 2)
+        entrance->sourceX = 0;
+
+    if (entrance->delay % 180 == 0)
+    {
+        entrance->shown = false;
+        player->entering = false;
     }
 }

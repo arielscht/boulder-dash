@@ -17,6 +17,7 @@
 #include "./libs/steelWall.h"
 #include "./libs/memory_alloc.h"
 #include "./libs/explosion.h"
+#include "./libs/exit.h"
 
 int main()
 {
@@ -72,6 +73,9 @@ int main()
     DIAMOND *diamonds = NULL;
     STEEL_WALL *steelWalls = NULL;
     WALL *walls = NULL;
+    EXIT exits[2];
+
+    rockford_entrance_init(&player, &exits[0]);
 
     alloc_entities(&entitiesQuantities, &boulders, &diamonds, &dirts, &steelWalls, &walls);
 
@@ -108,7 +112,8 @@ int main()
             diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap, explosions);
-            print_map(loadedMap);
+            rockford_entrance_update(&exits[0], &player);
+            // print_map(loadedMap);
 
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;
@@ -137,6 +142,7 @@ int main()
             boulder_draw(boulders, entitiesQuantities.boulder, &sprites);
             diamond_draw(diamonds, entitiesQuantities.diamond, &sprites);
             rockford_draw(&player, &sprites);
+            exit_draw(&exits[0], &sprites);
             explosion_draw(explosions, &sprites);
 
             display_post_draw(display, buffer);
