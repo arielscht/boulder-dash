@@ -16,9 +16,9 @@ void exit_update(EXIT *exit)
         exit->sourceX = 0;
 }
 
-void exit_draw(EXIT *exit, SPRITES *sprites)
+void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit)
 {
-    if (!exit->shown)
+    if (!exit->shown && !isExit)
         return;
 
     al_draw_bitmap_region(sprites->exit,

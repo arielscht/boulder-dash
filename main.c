@@ -60,6 +60,7 @@ int main()
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     int diamondsToWin;
+    int mapBlinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
     init_entities_count(&entitiesQuantities);
     read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities, &diamondsToWin);
@@ -87,7 +88,7 @@ int main()
     printf("WALL QUANTITY: %d\n", entitiesQuantities.wall);
     printf("DIAMONDS TO WIN: %d\n", diamondsToWin);
 
-    init_map(loadedMap, boulders, diamonds, dirts, steelWalls, walls);
+    init_map(loadedMap, boulders, diamonds, dirts, steelWalls, walls, &exits[1]);
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -115,6 +116,7 @@ int main()
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap, explosions);
             rockford_entrance_update(&exits[0], &player);
+            exit_update(&exits[1]);
             // print_map(loadedMap);
 
             if (key[ALLEGRO_KEY_ESCAPE])
@@ -134,7 +136,16 @@ int main()
         if (redraw && al_is_event_queue_empty(queue))
         {
             display_pre_draw(buffer);
+
             al_clear_to_color(al_map_rgb(0, 0, 0));
+
+            if (mapBlinkedFrame < 10 && player.diamondsObtained == diamondsToWin)
+            {
+                mapBlinkedFrame++;
+                exits[1].shown = true;
+                al_clear_to_color(al_map_rgb(255, 255, 255));
+            }
+
             al_draw_textf(font, al_map_rgb(255, 255, 255), 0, -8, 0, "X: %d Y:%d", player.x, player.y);
             al_draw_textf(font, al_map_rgb(255, 255, 255), 900, -8, 0, "%06d", player.score);
 
@@ -143,8 +154,9 @@ int main()
             wall_draw(walls, entitiesQuantities.wall, &sprites);
             boulder_draw(boulders, entitiesQuantities.boulder, &sprites);
             diamond_draw(diamonds, entitiesQuantities.diamond, &sprites);
+            exit_draw(&exits[1], &sprites, true);
             rockford_draw(&player, &sprites);
-            exit_draw(&exits[0], &sprites);
+            exit_draw(&exits[0], &sprites, false);
             explosion_draw(explosions, &sprites);
 
             display_post_draw(display, buffer);

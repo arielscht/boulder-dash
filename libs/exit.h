@@ -15,6 +15,6 @@ typedef struct EXIT
 
 void exit_update(EXIT *exit);
 
-void exit_draw(EXIT *exit, SPRITES *sprites);
+void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit);
 
 #endif

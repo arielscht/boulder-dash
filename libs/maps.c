@@ -53,7 +53,8 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
               DIAMOND *diamonds,
               DIRT *dirts,
               STEEL_WALL *steelWalls,
-              WALL *walls)
+              WALL *walls,
+              EXIT *exit)
 {
     int boulderIndex = 0;
     int diamondIndex = 0;
@@ -103,6 +104,13 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
                 walls[wallIndex].y = SPRITE_HEIGHT * (i + 1);
                 walls[wallIndex].shown = true;
                 wallIndex++;
+                break;
+            case MAP_EXIT:
+                exit->x = SPRITE_WIDTH * j;
+                exit->y = SPRITE_HEIGHT * (i + 1);
+                exit->shown = false;
+                exit->sourceX = 0;
+                exit->delay = 0;
                 break;
             }
         }

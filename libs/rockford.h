@@ -15,6 +15,7 @@ typedef struct ROCKFORD
     int sourceX, sourceY;
     int delay;
     int score;
+    int diamondsObtained;
     DIRECTIONS direction;
     DIRECTIONS last_direction;
     bool entering;

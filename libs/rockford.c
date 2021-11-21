@@ -18,6 +18,7 @@ void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
     player->sourceY = 0;
     player->delay = 0;
     player->score = 0;
+    player->diamondsObtained = 0;
     player->active = false;
     player->entering = true;
     player->alive = true;

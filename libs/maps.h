@@ -9,6 +9,7 @@
 #include "wall.h"
 #include "dirt.h"
 #include "constants.h"
+#include "exit.h"
 
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
               char *mapFile,
@@ -20,7 +21,8 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
               DIAMOND *diamonds,
               DIRT *dirts,
               STEEL_WALL *steelWalls,
-              WALL *walls);
+              WALL *walls,
+              EXIT *exit);
 
 void print_map(char map[MAP_HEIGHT][MAP_WIDTH]);
 

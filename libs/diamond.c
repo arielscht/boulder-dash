@@ -79,6 +79,7 @@ void diamond_update(DIAMOND *diamonds, int diamondQuantity, ROCKFORD *player, ch
         if (player->x == diamonds[i].x && player->y == diamonds[i].y)
         {
             diamonds[i].shown = false;
+            player->diamondsObtained++;
             player->score += DIAMOND_SCORE;
         }
 
