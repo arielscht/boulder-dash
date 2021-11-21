@@ -10,7 +10,10 @@
 #include "dirt.h"
 #include "constants.h"
 
-void read_map(char map[MAP_HEIGHT][MAP_WIDTH], char *mapFile, ENTITIES_QUANTITIES *entities);
+void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
+              char *mapFile,
+              ENTITIES_QUANTITIES *entities,
+              int *diamondsToWin);
 
 void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
               BOULDER *boulders,

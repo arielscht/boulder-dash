@@ -1,6 +1,9 @@
 #include "maps.h"
 
-void read_map(char map[MAP_HEIGHT][MAP_WIDTH], char *mapFileName, ENTITIES_QUANTITIES *entities)
+void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
+              char *mapFileName,
+              ENTITIES_QUANTITIES *entities,
+              int *diamondsToWin)
 {
     FILE *mapFile = fopen(mapFileName, "r");
 
@@ -15,6 +18,8 @@ void read_map(char map[MAP_HEIGHT][MAP_WIDTH], char *mapFileName, ENTITIES_QUANT
         }
         fgetc(mapFile);
     }
+
+    fscanf(mapFile, "%d", diamondsToWin);
 
     for (int i = 0; i < MAP_HEIGHT; i++)
     {

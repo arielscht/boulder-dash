@@ -59,9 +59,10 @@ int main()
 
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
+    int diamondsToWin;
     ENTITIES_QUANTITIES entitiesQuantities;
     init_entities_count(&entitiesQuantities);
-    read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities);
+    read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities, &diamondsToWin);
 
     //PLAYER
     ROCKFORD player;
@@ -84,6 +85,7 @@ int main()
     printf("DIAMOND QUANTITY: %d\n", entitiesQuantities.diamond);
     printf("STEEL WALL QUANTITY: %d\n", entitiesQuantities.steelWall);
     printf("WALL QUANTITY: %d\n", entitiesQuantities.wall);
+    printf("DIAMONDS TO WIN: %d\n", diamondsToWin);
 
     init_map(loadedMap, boulders, diamonds, dirts, steelWalls, walls);
 
