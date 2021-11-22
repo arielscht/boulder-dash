@@ -25,7 +25,11 @@ typedef struct ROCKFORD
 } ROCKFORD;
 
 void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
-void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH], EXPLOSION *explosions);
+void rockford_update(ROCKFORD *player,
+                     unsigned char *keyboard,
+                     char map[MAP_HEIGHT][MAP_WIDTH],
+                     EXPLOSION *explosions,
+                     bool *restart);
 void rockford_draw(ROCKFORD *player, SPRITES *sprites);
 void rockford_entrance_init(ROCKFORD *player, EXIT *exit);
 void rockford_entrance_update(EXIT *entrance, ROCKFORD *player);

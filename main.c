@@ -15,10 +15,11 @@
 #include "./libs/dirt.h"
 #include "./libs/wall.h"
 #include "./libs/steelWall.h"
-#include "./libs/memory_alloc.h"
+#include "./libs/memoryAlloc.h"
 #include "./libs/explosion.h"
 #include "./libs/exit.h"
 #include "./libs/hud.h"
+#include "./libs/game.h"
 
 int main()
 {
@@ -41,7 +42,6 @@ int main()
     display_init(&display, &buffer);
 
     //FONT
-    // ALLEGRO_FONT *font = al_create_builtin_font();
     ALLEGRO_FONT *font = al_load_ttf_font("./resources/boulder-dash.ttf", 50, 0);
     must_init(font, "font");
 
@@ -64,12 +64,9 @@ int main()
     int scorePerDiamond;
     int mapBlinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
-    init_entities_count(&entitiesQuantities);
-    read_map(loadedMap, "./resources/maps/map1.txt", &entitiesQuantities, &diamondsToWin, &scorePerDiamond);
 
     //PLAYER
     ROCKFORD player;
-    rockford_init(&player, loadedMap);
 
     //ENTITIES
     BOULDER *boulders = NULL;
@@ -79,10 +76,6 @@ int main()
     WALL *walls = NULL;
     EXIT exits[2];
 
-    rockford_entrance_init(&player, &exits[0]);
-
-    alloc_entities(&entitiesQuantities, &boulders, &diamonds, &dirts, &steelWalls, &walls);
-
     printf("BOULDER QUANTITY: %d\n", entitiesQuantities.boulder);
     printf("DIRT QUANTITY: %d\n", entitiesQuantities.dirt);
     printf("DIAMOND QUANTITY: %d\n", entitiesQuantities.diamond);
@@ -91,14 +84,13 @@ int main()
     printf("DIAMONDS TO WIN: %d\n", diamondsToWin);
     printf("SCORE PER DIAMOND: %d\n", scorePerDiamond);
 
-    init_map(loadedMap, boulders, diamonds, dirts, steelWalls, walls, &exits[1]);
-
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_register_event_source(queue, al_get_display_event_source(display));
 
     bool done = false;
     bool redraw = true;
+    bool restart = true;
 
     ALLEGRO_EVENT event;
 
@@ -107,6 +99,25 @@ int main()
     while (true)
     {
         al_wait_for_event(queue, &event);
+
+        if (restart)
+        {
+            start_game(loadedMap,
+                       &diamondsToWin,
+                       &scorePerDiamond,
+                       &entitiesQuantities,
+                       "./resources/maps/map2.txt",
+                       &player,
+                       &boulders,
+                       &dirts,
+                       &diamonds,
+                       &steelWalls,
+                       &walls,
+                       &exits[0],
+                       &exits[1]);
+
+            restart = false;
+        }
 
         switch (event.type)
         {
@@ -117,10 +128,10 @@ int main()
             boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap);
             diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond);
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
-            rockford_update(&player, key, loadedMap, explosions);
+            rockford_update(&player, key, loadedMap, explosions, &restart);
             rockford_entrance_update(&exits[0], &player);
             exit_update(&exits[1]);
-            // print_map(loadedMap);
+            print_map(loadedMap);
 
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;

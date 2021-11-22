@@ -47,10 +47,24 @@ bool is_allowed_to_move(char mapItem)
     return false;
 }
 
-void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEIGHT][MAP_WIDTH], EXPLOSION *explosions)
+void rockford_update(ROCKFORD *player,
+                     unsigned char *keyboard,
+                     char map[MAP_HEIGHT][MAP_WIDTH],
+                     EXPLOSION *explosions,
+                     bool *restart)
 {
 
-    if ((!player->alive && player->exploded) || player->entering)
+    if (!player->alive && player->exploded)
+    {
+        player->delay++;
+
+        if (player->delay % 80 == 0)
+            *restart = true;
+
+        return;
+    }
+
+    if (player->entering)
         return;
 
     player->delay++;
@@ -127,6 +141,7 @@ void rockford_update(ROCKFORD *player, unsigned char *keyboard, char map[MAP_HEI
         if (!player->exploded)
         {
             player->exploded = true;
+            player->delay = 0;
             explode_map_area(explosions, player->x, player->y, map);
         }
         return;
