@@ -185,34 +185,3 @@ void rockford_draw(ROCKFORD *player, SPRITES *sprites)
             player->x, player->y, 0);
     }
 }
-
-void rockford_entrance_init(ROCKFORD *player, EXIT *entrance)
-{
-    entrance->x = player->x;
-    entrance->y = player->y;
-    entrance->shown = true;
-    entrance->delay = 0;
-    entrance->sourceX = 0;
-}
-
-void rockford_entrance_update(EXIT *entrance, ROCKFORD *player)
-{
-    if (!entrance->shown)
-        return;
-
-    entrance->delay++;
-
-    if (entrance->delay % 20 != 0)
-        return;
-
-    entrance->sourceX += SPRITE_WIDTH;
-
-    if (entrance->sourceX == SPRITE_WIDTH * 2)
-        entrance->sourceX = 0;
-
-    if (entrance->delay % 180 == 0)
-    {
-        entrance->shown = false;
-        player->entering = false;
-    }
-}

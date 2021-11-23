@@ -3,6 +3,7 @@
 
 #include "sprites.h"
 #include "constants.h"
+#include "rockford.h"
 
 typedef struct EXIT
 {
@@ -13,8 +14,12 @@ typedef struct EXIT
     bool shown;
 } EXIT;
 
-void exit_update(EXIT *exit);
+void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, int *currentMap);
 
 void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit);
+
+void rockford_entrance_init(ROCKFORD *player, EXIT *exit);
+
+void rockford_entrance_update(EXIT *entrance, ROCKFORD *player);
 
 #endif

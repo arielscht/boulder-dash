@@ -92,8 +92,7 @@ int main()
     bool redraw = true;
     bool restart = true;
 
-    char maps[2][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
-    int mapQuantity = 2;
+    char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
     int currentMap = 0;
 
     ALLEGRO_EVENT event;
@@ -122,6 +121,7 @@ int main()
                        &exits[0],
                        &exits[1]);
 
+            mapBlinkedFrame = 0;
             restart = false;
         }
 
@@ -136,7 +136,7 @@ int main()
             dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
             rockford_update(&player, key, loadedMap, explosions, &restart);
             rockford_entrance_update(&exits[0], &player);
-            exit_update(&exits[1]);
+            exit_update(&exits[1], &player, &restart, &currentMap);
             // print_map(loadedMap);
 
             if (key[ALLEGRO_KEY_ESCAPE])

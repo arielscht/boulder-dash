@@ -54,3 +54,4 @@ dkms.conf
 allegro
 testes
 boulder-dash
+./resources/score.txt

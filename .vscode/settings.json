@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "memoryalloc.h": "c",
+        "steelwall.h": "c"
+    }
+}

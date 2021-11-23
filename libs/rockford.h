@@ -7,7 +7,6 @@
 #include "display.h"
 #include "constants.h"
 #include "explosion.h"
-#include "exit.h"
 
 typedef struct ROCKFORD
 {
@@ -31,7 +30,5 @@ void rockford_update(ROCKFORD *player,
                      EXPLOSION *explosions,
                      bool *restart);
 void rockford_draw(ROCKFORD *player, SPRITES *sprites);
-void rockford_entrance_init(ROCKFORD *player, EXIT *exit);
-void rockford_entrance_update(EXIT *entrance, ROCKFORD *player);
 
 #endif

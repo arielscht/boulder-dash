@@ -6,7 +6,7 @@ ALLEGRO_LIBS = `pkg-config allegro-5\
 				allegro_ttf-5\
 				--libs --cflags`
 
-OBJECTS =  memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o ./libs/constants.h main.o
+OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o ./libs/constants.h main.o
 
 all: boulder-dash
 
