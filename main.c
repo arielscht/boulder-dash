@@ -136,6 +136,9 @@ int main()
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;
 
+            if (key[ALLEGRO_KEY_R])
+                restart = true;
+
             redraw = true;
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
