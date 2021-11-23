@@ -92,6 +92,10 @@ int main()
     bool redraw = true;
     bool restart = true;
 
+    char maps[2][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
+    int mapQuantity = 2;
+    int currentMap = 0;
+
     ALLEGRO_EVENT event;
 
     al_start_timer(timer);
@@ -102,11 +106,13 @@ int main()
 
         if (restart)
         {
+            free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
+
             start_game(loadedMap,
                        &diamondsToWin,
                        &scorePerDiamond,
                        &entitiesQuantities,
-                       "./resources/maps/map2.txt",
+                       maps[currentMap],
                        &player,
                        &boulders,
                        &dirts,
@@ -131,7 +137,7 @@ int main()
             rockford_update(&player, key, loadedMap, explosions, &restart);
             rockford_entrance_update(&exits[0], &player);
             exit_update(&exits[1]);
-            print_map(loadedMap);
+            // print_map(loadedMap);
 
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;
@@ -163,10 +169,7 @@ int main()
                 al_clear_to_color(al_map_rgb(255, 255, 255));
             }
 
-            // al_draw_textf(font, al_map_rgb(255, 255, 255), 0, -8, 0, "X: %d Y:%d", player.x, player.y);
-
             hud_draw(font, &player, diamondsToWin, scorePerDiamond);
-
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);
             wall_draw(walls, entitiesQuantities.wall, &sprites);
@@ -188,7 +191,7 @@ int main()
     al_destroy_event_queue(queue);
     al_destroy_font(font);
 
-    free_entities(&entitiesQuantities, boulders, diamonds, dirts, steelWalls, walls);
+    free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
 
     return 0;
 }

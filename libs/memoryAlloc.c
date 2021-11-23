@@ -24,17 +24,36 @@ void alloc_entities(
     must_alloc(*walls, "walls");
 }
 
-void free_entities(ENTITIES_QUANTITIES *entities,
-                   BOULDER *boulders,
-                   DIAMOND *diamonds,
-                   DIRT *dirts,
-                   STEEL_WALL *steelWalls,
-                   WALL *walls)
+void free_entities(
+    BOULDER **boulders,
+    DIAMOND **diamonds,
+    DIRT **dirts,
+    STEEL_WALL **steelWalls,
+    WALL **walls)
 {
-    // for(int i = 0; i < entities.boulder)
-    free(boulders);
-    free(diamonds);
-    free(dirts);
-    free(steelWalls);
-    free(walls);
+    if (*boulders != NULL)
+    {
+        free(*boulders);
+        *boulders = NULL;
+    }
+    if (*diamonds != NULL)
+    {
+        free(*diamonds);
+        *diamonds = NULL;
+    }
+    if (*dirts != NULL)
+    {
+        free(*dirts);
+        *dirts = NULL;
+    }
+    if (*steelWalls != NULL)
+    {
+        free(*steelWalls);
+        *steelWalls = NULL;
+    }
+    if (*walls != NULL)
+    {
+        free(*walls);
+        *walls = NULL;
+    }
 }

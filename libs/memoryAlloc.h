@@ -15,11 +15,11 @@ void alloc_entities(
     STEEL_WALL **steelWalls,
     WALL **walls);
 
-void free_entities(ENTITIES_QUANTITIES *entities,
-                   BOULDER *boulders,
-                   DIAMOND *diamonds,
-                   DIRT *dirts,
-                   STEEL_WALL *steelWalls,
-                   WALL *walls);
+void free_entities(
+    BOULDER **boulders,
+    DIAMOND **diamonds,
+    DIRT **dirts,
+    STEEL_WALL **steelWalls,
+    WALL **walls);
 
 #endif

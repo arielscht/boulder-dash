@@ -58,7 +58,7 @@ void rockford_update(ROCKFORD *player,
     {
         player->delay++;
 
-        if (player->delay % 80 == 0)
+        if (player->delay % 150 == 0)
             *restart = true;
 
         return;
