@@ -4,9 +4,10 @@ ALLEGRO_LIBS = `pkg-config allegro-5\
 			 	allegro_image-5\
 				allegro_font-5\
 				allegro_ttf-5\
+				allegro_primitives-5\
 				--libs --cflags`
 
-OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o ./libs/constants.h main.o
+OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o help.o ./libs/constants.h main.o
 
 all: boulder-dash
 
@@ -63,6 +64,9 @@ hud.o: ./libs/hud.c ./libs/hud.h
 
 game.o: ./libs/game.c ./libs/game.h
 	gcc -c ./libs/game.c $(CFLAGS);
+
+help.o: ./libs/help.c ./libs/help.h
+	gcc -c ./libs/help.c $(CFLAGS);
 
 constants.h: ./libs/constants.h
 

@@ -4,6 +4,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_primitives.h>
 #include "./libs/display.h"
 #include "./libs/utils.h"
 #include "./libs/keyboard.h"
@@ -20,6 +21,7 @@
 #include "./libs/exit.h"
 #include "./libs/hud.h"
 #include "./libs/game.h"
+#include "./libs/help.h"
 
 int main()
 {
@@ -28,6 +30,7 @@ int main()
     must_init(al_install_keyboard(), "keyboard");
     must_init(al_init_font_addon(), "font addon");
     must_init(al_init_ttf_addon(), "ttf addon");
+    must_init(al_init_primitives_addon(), "primitives addon");
 
     //TIMER AND QUEUE
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
@@ -42,7 +45,10 @@ int main()
     display_init(&display, &buffer);
 
     //FONT
-    ALLEGRO_FONT *font = al_load_ttf_font("./resources/boulder-dash.ttf", 50, 0);
+    ALLEGRO_FONT *font = al_load_ttf_font("./resources/fonts/boulder-dash.ttf", 50, 0);
+    ALLEGRO_FONT *menuTitleFont = al_load_ttf_font("./resources/fonts/press-start.ttf", 35, 0);
+    ALLEGRO_FONT *menuSubtitleFont = al_load_ttf_font("./resources/fonts/press-start.ttf", 15, 0);
+    ALLEGRO_FONT *menuTextFont = al_load_ttf_font("./resources/fonts/press-start.ttf", 12, 0);
     must_init(font, "font");
 
     //KEYBOARD
@@ -91,6 +97,7 @@ int main()
     bool done = false;
     bool redraw = true;
     bool restart = true;
+    bool helpOpen = false;
 
     char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
     int currentMap = 0;
@@ -129,15 +136,19 @@ int main()
         {
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
-            explosion_update(explosions, loadedMap);
-            wall_update(walls, entitiesQuantities.wall, loadedMap);
-            boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap);
-            diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond);
-            dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
-            rockford_update(&player, key, loadedMap, explosions, &restart);
-            rockford_entrance_update(&exits[0], &player);
-            exit_update(&exits[1], &player, &restart, &currentMap);
-            // print_map(loadedMap);
+
+            if (!helpOpen)
+            {
+                explosion_update(explosions, loadedMap);
+                wall_update(walls, entitiesQuantities.wall, loadedMap);
+                boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap);
+                diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond);
+                dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
+                rockford_update(&player, key, loadedMap, explosions, &restart);
+                rockford_entrance_update(&exits[0], &player);
+                exit_update(&exits[1], &player, &restart, &currentMap);
+                // print_map(loadedMap);
+            }
 
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;
@@ -146,6 +157,10 @@ int main()
                 restart = true;
 
             redraw = true;
+            break;
+        case ALLEGRO_EVENT_KEY_DOWN:
+            if (event.keyboard.keycode == ALLEGRO_KEY_H || event.keyboard.keycode == ALLEGRO_KEY_F5)
+                helpOpen = !helpOpen;
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             done = true;
@@ -179,6 +194,8 @@ int main()
             rockford_draw(&player, &sprites);
             exit_draw(&exits[0], &sprites, false);
             explosion_draw(explosions, &sprites);
+            if (helpOpen)
+                help_draw(menuTitleFont, menuSubtitleFont, menuTextFont);
 
             display_post_draw(display, buffer);
             redraw = false;
@@ -190,6 +207,9 @@ int main()
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);
     al_destroy_font(font);
+    al_destroy_font(menuTitleFont);
+    al_destroy_font(menuSubtitleFont);
+    al_destroy_font(menuTextFont);
 
     free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
 
