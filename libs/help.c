@@ -32,6 +32,11 @@ void help_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text)
     al_draw_text(
         text,
         al_map_rgb(0, 0, 0),
+        (BUFFER_WIDTH / 2), 580,
+        ALLEGRO_ALIGN_CENTRE, "Developed by Ariel Evaldt Schmitt");
+    al_draw_text(
+        text,
+        al_map_rgb(0, 0, 0),
         (BUFFER_WIDTH / 2) + 40, 610,
         0, "Press h or f5 to play");
 }
