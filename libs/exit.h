@@ -4,6 +4,7 @@
 #include "sprites.h"
 #include "constants.h"
 #include "rockford.h"
+#include "audio.h"
 
 typedef struct EXIT
 {
@@ -20,6 +21,6 @@ void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit);
 
 void rockford_entrance_init(ROCKFORD *player, EXIT *exit);
 
-void rockford_entrance_update(EXIT *entrance, ROCKFORD *player);
+void rockford_entrance_update(EXIT *entrance, ROCKFORD *player, SOUNDS *sounds);
 
 #endif

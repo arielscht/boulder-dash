@@ -1,6 +1,11 @@
 #include "diamond.h"
 
-void diamond_falling(DIAMOND *diamond, int x, int y, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+void diamond_falling(
+    DIAMOND *diamond,
+    int x, int y,
+    ROCKFORD *player,
+    char map[MAP_HEIGHT][MAP_WIDTH],
+    SOUNDS *sounds)
 {
     if (map[y + 1][x] == MAP_BLANK)
     {
@@ -38,8 +43,9 @@ void diamond_falling(DIAMOND *diamond, int x, int y, ROCKFORD *player, char map[
             map[y][x + 1] = MAP_DIAMOND;
             diamond->x += SPRITE_WIDTH;
         }
-        else
+        else if (diamond->falling)
         {
+            al_play_sample(sounds->diamondFall, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
             diamond->falling = false;
         }
     }
@@ -47,8 +53,9 @@ void diamond_falling(DIAMOND *diamond, int x, int y, ROCKFORD *player, char map[
     {
         player->alive = false;
     }
-    else
+    else if (diamond->falling)
     {
+        al_play_sample(sounds->diamondFall, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
         diamond->falling = false;
     }
 }
@@ -57,7 +64,8 @@ void diamond_update(DIAMOND *diamonds,
                     int diamondQuantity,
                     ROCKFORD *player,
                     char map[MAP_HEIGHT][MAP_WIDTH],
-                    int scorePerDiamond)
+                    int scorePerDiamond,
+                    SOUNDS *sounds)
 {
     for (int i = 0; i < diamondQuantity; i++)
     {
@@ -78,10 +86,11 @@ void diamond_update(DIAMOND *diamonds,
             return;
         }
 
-        diamond_falling(&diamonds[i], diamondX, diamondY, player, map);
+        diamond_falling(&diamonds[i], diamondX, diamondY, player, map, sounds);
 
-        if (player->x == diamonds[i].x && player->y == diamonds[i].y)
+        if (player->x == diamonds[i].x && player->y == diamonds[i].y && player->alive)
         {
+            al_play_sample(sounds->getDiamond, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
             diamonds[i].shown = false;
             player->diamondsObtained++;
             player->score += scorePerDiamond;

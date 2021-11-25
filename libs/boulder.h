@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "utils.h"
 #include "rockford.h"
+#include "audio.h"
 
 typedef struct BOULDER
 {
@@ -16,7 +17,12 @@ typedef struct BOULDER
     bool shown;
 } BOULDER;
 
-void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
+void boulder_update(
+    BOULDER *boulders,
+    int boulderQuantity,
+    ROCKFORD *player,
+    char map[MAP_HEIGHT][MAP_WIDTH],
+    SOUNDS *sounds);
 
 void boulder_draw(BOULDER *boulders, int boulderQuantity, SPRITES *sprites);
 

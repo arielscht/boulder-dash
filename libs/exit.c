@@ -45,7 +45,7 @@ void rockford_entrance_init(ROCKFORD *player, EXIT *entrance)
     entrance->sourceX = 0;
 }
 
-void rockford_entrance_update(EXIT *entrance, ROCKFORD *player)
+void rockford_entrance_update(EXIT *entrance, ROCKFORD *player, SOUNDS *sounds)
 {
     if (!entrance->shown)
         return;
@@ -62,6 +62,7 @@ void rockford_entrance_update(EXIT *entrance, ROCKFORD *player)
 
     if (entrance->delay % 180 == 0)
     {
+        al_play_sample(sounds->spawn, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
         entrance->shown = false;
         player->entering = false;
     }

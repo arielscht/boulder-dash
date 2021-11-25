@@ -5,6 +5,7 @@
 #include "sprites.h"
 #include "rockford.h"
 #include "constants.h"
+#include "audio.h"
 
 typedef struct DIRT
 {
@@ -12,7 +13,11 @@ typedef struct DIRT
     bool shown;
 } DIRT;
 
-void dirt_update(DIRT *dirts, int dirtQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
+void dirt_update(DIRT *dirts,
+                 int dirtQuantity,
+                 ROCKFORD *player,
+                 char map[MAP_HEIGHT][MAP_WIDTH],
+                 SOUNDS *sounds);
 
 void dirt_draw(DIRT *dirts, int dirtQuantity, SPRITES *sprites);
 

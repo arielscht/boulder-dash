@@ -4,6 +4,7 @@
 #include "sprites.h"
 #include "constants.h"
 #include "rockford.h"
+#include "audio.h"
 
 typedef struct DIAMOND
 {
@@ -17,7 +18,8 @@ void diamond_update(DIAMOND *diamonds,
                     int diamondQuantity,
                     ROCKFORD *player,
                     char map[MAP_HEIGHT][MAP_WIDTH],
-                    int scorePerDiamond);
+                    int scorePerDiamond,
+                    SOUNDS *sounds);
 
 void diamond_draw(DIAMOND *diamonds, int diamondQuantity, SPRITES *sprites);
 

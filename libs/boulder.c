@@ -1,6 +1,10 @@
 #include "boulder.h"
 
-void boulder_falling(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+void boulder_falling(BOULDER *boulder,
+                     int x, int y,
+                     ROCKFORD *player,
+                     char map[MAP_HEIGHT][MAP_WIDTH],
+                     SOUNDS *sounds)
 {
 
     if (map[y + 1][x] == MAP_BLANK)
@@ -39,8 +43,9 @@ void boulder_falling(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[
             map[y][x + 1] = MAP_BOULDER;
             boulder->x += SPRITE_WIDTH;
         }
-        else
+        else if (boulder->falling)
         {
+            al_play_sample(sounds->boulderFall, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
             boulder->falling = false;
         }
     }
@@ -48,8 +53,9 @@ void boulder_falling(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[
     {
         player->alive = false;
     }
-    else
+    else if (boulder->falling)
     {
+        al_play_sample(sounds->boulderFall, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
         boulder->falling = false;
     }
 }
@@ -94,7 +100,12 @@ void boulder_pushed(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[M
     }
 }
 
-void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+void boulder_update(
+    BOULDER *boulders,
+    int boulderQuantity,
+    ROCKFORD *player,
+    char map[MAP_HEIGHT][MAP_WIDTH],
+    SOUNDS *sounds)
 {
     for (int i = 0; i < boulderQuantity; i++)
     {
@@ -116,7 +127,7 @@ void boulder_update(BOULDER *boulders, int boulderQuantity, ROCKFORD *player, ch
         }
 
         boulder_pushed(&boulders[i], boulderX, boulderY, player, map);
-        boulder_falling(&boulders[i], boulderX, boulderY, player, map);
+        boulder_falling(&boulders[i], boulderX, boulderY, player, map, sounds);
     }
 }
 

@@ -5,6 +5,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include "./libs/display.h"
 #include "./libs/utils.h"
 #include "./libs/keyboard.h"
@@ -22,6 +24,7 @@
 #include "./libs/hud.h"
 #include "./libs/game.h"
 #include "./libs/help.h"
+#include "./libs/audio.h"
 
 int main()
 {
@@ -31,6 +34,9 @@ int main()
     must_init(al_init_font_addon(), "font addon");
     must_init(al_init_ttf_addon(), "ttf addon");
     must_init(al_init_primitives_addon(), "primitives addon");
+    must_init(al_install_audio(), "audio");
+    must_init(al_init_acodec_addon(), "audio codecs");
+    must_init(al_reserve_samples(50), "reserve samples");
 
     //TIMER AND QUEUE
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
@@ -50,6 +56,13 @@ int main()
     ALLEGRO_FONT *menuSubtitleFont = al_load_ttf_font("./resources/fonts/press-start.ttf", 15, 0);
     ALLEGRO_FONT *menuTextFont = al_load_ttf_font("./resources/fonts/press-start.ttf", 12, 0);
     must_init(font, "font");
+
+    //AUDIO
+    SOUNDS sounds;
+    audio_init(&sounds);
+    al_set_audio_stream_playmode(sounds.theme, ALLEGRO_PLAYMODE_LOOP);
+    al_set_audio_stream_gain(sounds.theme, 0.5);
+    al_attach_audio_stream_to_mixer(sounds.theme, al_get_default_mixer());
 
     //KEYBOARD
     unsigned char key[ALLEGRO_KEY_MAX];
@@ -81,14 +94,6 @@ int main()
     STEEL_WALL *steelWalls = NULL;
     WALL *walls = NULL;
     EXIT exits[2];
-
-    printf("BOULDER QUANTITY: %d\n", entitiesQuantities.boulder);
-    printf("DIRT QUANTITY: %d\n", entitiesQuantities.dirt);
-    printf("DIAMOND QUANTITY: %d\n", entitiesQuantities.diamond);
-    printf("STEEL WALL QUANTITY: %d\n", entitiesQuantities.steelWall);
-    printf("WALL QUANTITY: %d\n", entitiesQuantities.wall);
-    printf("DIAMONDS TO WIN: %d\n", diamondsToWin);
-    printf("SCORE PER DIAMOND: %d\n", scorePerDiamond);
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -141,11 +146,11 @@ int main()
             {
                 explosion_update(explosions, loadedMap);
                 wall_update(walls, entitiesQuantities.wall, loadedMap);
-                boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap);
-                diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond);
-                dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap);
-                rockford_update(&player, key, loadedMap, explosions, &restart);
-                rockford_entrance_update(&exits[0], &player);
+                boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
+                diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond, &sounds);
+                dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
+                rockford_update(&player, key, loadedMap, explosions, &restart, &sounds);
+                rockford_entrance_update(&exits[0], &player, &sounds);
                 exit_update(&exits[1], &player, &restart, &currentMap);
                 // print_map(loadedMap);
             }
@@ -179,6 +184,8 @@ int main()
 
             if (mapBlinkedFrame < 10 && player.diamondsObtained == diamondsToWin)
             {
+                if (mapBlinkedFrame == 0)
+                    al_play_sample(sounds.spawn, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 mapBlinkedFrame++;
                 exits[1].shown = true;
                 al_clear_to_color(al_map_rgb(255, 255, 255));
@@ -203,6 +210,7 @@ int main()
     }
 
     sprites_deinit(&sprites);
+    audio_deinit(&sounds);
     display_deinit(display, buffer);
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);

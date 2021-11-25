@@ -2,7 +2,11 @@
 #include "utils.h"
 #include "constants.h"
 
-void dirt_update(DIRT *dirts, int dirtQuantity, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+void dirt_update(DIRT *dirts,
+                 int dirtQuantity,
+                 ROCKFORD *player,
+                 char map[MAP_HEIGHT][MAP_WIDTH],
+                 SOUNDS *sounds)
 {
     for (int i = 0; i < dirtQuantity; i++)
     {
@@ -20,6 +24,7 @@ void dirt_update(DIRT *dirts, int dirtQuantity, ROCKFORD *player, char map[MAP_H
 
         if (player->x == dirts[i].x && player->y == dirts[i].y)
         {
+            al_play_sample(sounds->dirt, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
             dirts[i].shown = false;
         }
     }
