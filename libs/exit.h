@@ -15,7 +15,7 @@ typedef struct EXIT
     bool shown;
 } EXIT;
 
-void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, int *currentMap);
+void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, int *currentMap, int *levelScore);
 
 void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit);
 

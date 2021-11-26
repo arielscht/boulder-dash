@@ -1,6 +1,13 @@
 #include "rockford.h"
 
-void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
+void rockford_init_score(ROCKFORD *player)
+{
+    player->previousScore = 0;
+    player->score = 0;
+    player->lives = 3;
+}
+
+void rockford_init_map(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH], bool restartScore)
 {
     for (int i = 0; i < MAP_HEIGHT; i++)
     {
@@ -14,15 +21,20 @@ void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
         }
     }
 
+    if (restartScore)
+    {
+        rockford_init_score(player);
+    }
+    player->score = player->previousScore;
     player->sourceX = 0;
     player->sourceY = 0;
     player->delay = 0;
-    player->score = 0;
     player->diamondsObtained = 0;
     player->active = false;
     player->entering = true;
     player->alive = true;
     player->exploded = false;
+    player->locked = false;
     player->direction = UP_DIR;
     player->last_direction = UP_DIR;
 }
@@ -33,7 +45,7 @@ void rockford_update_map(int previousX, int previousY, int x, int y, char map[MA
     map[get_map_y_position(y)][get_map_x_position(x)] = MAP_ROCKFORD;
 }
 
-bool is_allowed_to_move(char mapItem, SOUNDS *sounds)
+bool is_allowed_to_move(ROCKFORD *player, char mapItem, SOUNDS *sounds, bool exitOpen)
 {
     if (mapItem == MAP_DIRT ||
         mapItem == MAP_DIAMOND ||
@@ -44,6 +56,13 @@ bool is_allowed_to_move(char mapItem, SOUNDS *sounds)
     {
         if (mapItem == MAP_BLANK)
             al_play_sample(sounds->move, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+        if (mapItem == MAP_EXIT)
+        {
+            if (!exitOpen)
+                return false;
+            else
+                player->locked = true;
+        }
         return true;
     }
     return false;
@@ -54,15 +73,23 @@ void rockford_update(ROCKFORD *player,
                      char map[MAP_HEIGHT][MAP_WIDTH],
                      EXPLOSION *explosions,
                      bool *restart,
-                     SOUNDS *sounds)
+                     SOUNDS *sounds,
+                     bool exitOpen,
+                     int *currentMap)
 {
+    if (player->locked)
+        return;
 
     if (!player->alive && player->exploded)
     {
         player->delay++;
 
         if (player->delay % 150 == 0)
+        {
+            if (player->lives == -1)
+                *currentMap = 0;
             *restart = true;
+        }
 
         return;
     }
@@ -80,7 +107,7 @@ void rockford_update(ROCKFORD *player,
     player->active = true;
     if (keyboard[ALLEGRO_KEY_LEFT] || keyboard[ALLEGRO_KEY_A])
     {
-        if (is_allowed_to_move(map[get_map_y_position(player->y)][get_map_x_position(player->x) - 1], sounds))
+        if (is_allowed_to_move(player, map[get_map_y_position(player->y)][get_map_x_position(player->x) - 1], sounds, exitOpen))
         {
             rockford_update_map(player->x, player->y, player->x - SPRITE_WIDTH, player->y, map);
             player->x -= SPRITE_WIDTH;
@@ -91,7 +118,7 @@ void rockford_update(ROCKFORD *player,
     }
     else if (keyboard[ALLEGRO_KEY_RIGHT] || keyboard[ALLEGRO_KEY_D])
     {
-        if (is_allowed_to_move(map[get_map_y_position(player->y)][get_map_x_position(player->x) + 1], sounds))
+        if (is_allowed_to_move(player, map[get_map_y_position(player->y)][get_map_x_position(player->x) + 1], sounds, exitOpen))
         {
             rockford_update_map(player->x, player->y, player->x + SPRITE_WIDTH, player->y, map);
             player->x += SPRITE_WIDTH;
@@ -102,7 +129,7 @@ void rockford_update(ROCKFORD *player,
     }
     else if (keyboard[ALLEGRO_KEY_UP] || keyboard[ALLEGRO_KEY_W])
     {
-        if (is_allowed_to_move(map[get_map_y_position(player->y) - 1][get_map_x_position(player->x)], sounds))
+        if (is_allowed_to_move(player, map[get_map_y_position(player->y) - 1][get_map_x_position(player->x)], sounds, exitOpen))
         {
             rockford_update_map(player->x, player->y, player->x, player->y - SPRITE_HEIGHT, map);
             player->y -= SPRITE_HEIGHT;
@@ -113,7 +140,7 @@ void rockford_update(ROCKFORD *player,
     }
     else if (keyboard[ALLEGRO_KEY_DOWN] || keyboard[ALLEGRO_KEY_S])
     {
-        if (is_allowed_to_move(map[get_map_y_position(player->y) + 1][get_map_x_position(player->x)], sounds))
+        if (is_allowed_to_move(player, map[get_map_y_position(player->y) + 1][get_map_x_position(player->x)], sounds, exitOpen))
         {
             rockford_update_map(player->x, player->y, player->x, player->y + SPRITE_HEIGHT, map);
             player->y += SPRITE_HEIGHT;

@@ -80,12 +80,14 @@ int main()
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     int diamondsToWin;
+    int levelScore;
     int scorePerDiamond;
     int mapBlinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
 
     //PLAYER
     ROCKFORD player;
+    rockford_init_score(&player);
 
     //ENTITIES
     BOULDER *boulders = NULL;
@@ -121,6 +123,7 @@ int main()
 
             start_game(loadedMap,
                        &diamondsToWin,
+                       &levelScore,
                        &scorePerDiamond,
                        &entitiesQuantities,
                        maps[currentMap],
@@ -149,9 +152,9 @@ int main()
                 boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
                 diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond, &sounds);
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
-                rockford_update(&player, key, loadedMap, explosions, &restart, &sounds);
+                rockford_update(&player, key, loadedMap, explosions, &restart, &sounds, exits[1].shown, &currentMap);
                 rockford_entrance_update(&exits[0], &player, &sounds);
-                exit_update(&exits[1], &player, &restart, &currentMap);
+                exit_update(&exits[1], &player, &restart, &currentMap, &levelScore);
                 // print_map(loadedMap);
             }
 
@@ -191,7 +194,7 @@ int main()
                 al_clear_to_color(al_map_rgb(255, 255, 255));
             }
 
-            hud_draw(font, &player, diamondsToWin, scorePerDiamond);
+            hud_draw(font, &player, &sprites, diamondsToWin, scorePerDiamond);
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);
             wall_draw(walls, entitiesQuantities.wall, &sprites);

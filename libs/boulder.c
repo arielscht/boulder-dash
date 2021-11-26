@@ -49,9 +49,10 @@ void boulder_falling(BOULDER *boulder,
             boulder->falling = false;
         }
     }
-    else if (boulder->falling && map[y + 1][x] == MAP_ROCKFORD)
+    else if (boulder->falling && map[y + 1][x] == MAP_ROCKFORD && player->alive)
     {
         player->alive = false;
+        player->lives = player->lives - 1;
     }
     else if (boulder->falling)
     {

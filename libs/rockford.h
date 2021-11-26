@@ -14,23 +14,28 @@ typedef struct ROCKFORD
     int x, y;
     int sourceX, sourceY;
     int delay;
-    int score;
+    int previousScore, score;
+    int lives;
     int diamondsObtained;
     DIRECTIONS direction;
     DIRECTIONS last_direction;
     bool entering;
     bool alive;
+    bool locked;
     bool exploded;
     bool active;
 } ROCKFORD;
 
-void rockford_init(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH]);
+void rockford_init_map(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH], bool restartScore);
+void rockford_init_score(ROCKFORD *player);
 void rockford_update(ROCKFORD *player,
                      unsigned char *keyboard,
                      char map[MAP_HEIGHT][MAP_WIDTH],
                      EXPLOSION *explosions,
                      bool *restart,
-                     SOUNDS *sounds);
+                     SOUNDS *sounds,
+                     bool exitOpen,
+                     int *currentMap);
 void rockford_draw(ROCKFORD *player, SPRITES *sprites);
 
 #endif

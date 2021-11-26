@@ -16,6 +16,7 @@
 void start_game(
     char map[MAP_HEIGHT][MAP_WIDTH],
     int *diamondsToWin,
+    int *levelScore,
     int *scorePerDiamond,
     ENTITIES_QUANTITIES *entitiesQuantities,
     char *mapFile,
