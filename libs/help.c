@@ -38,7 +38,7 @@ void help_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text)
         text,
         al_map_rgb(0, 0, 0),
         (BUFFER_WIDTH / 2) + 40, 610,
-        0, "Press h or f5 to play");
+        0, "Press H or F5 to play");
 }
 
 void score_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text, int currentScore)
@@ -61,4 +61,15 @@ void score_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text,
             530, 280 + i * (60),
             0, "%d. %d", i + 1, savedScore[i]);
     }
+
+    al_draw_text(
+        text,
+        al_map_rgb(0, 0, 0),
+        400, 600,
+        0, "Press R to restart");
+    al_draw_text(
+        text,
+        al_map_rgb(0, 0, 0),
+        650, 600,
+        0, "Press ESC to leave");
 }
