@@ -75,7 +75,7 @@ void rockford_update(ROCKFORD *player,
                      bool *restart,
                      SOUNDS *sounds,
                      bool exitOpen,
-                     int *currentMap)
+                     MAP_DATA *mapData)
 {
     if (player->locked)
         return;
@@ -87,7 +87,7 @@ void rockford_update(ROCKFORD *player,
         if (player->delay % 150 == 0)
         {
             if (player->lives == -1)
-                *currentMap = 0;
+                mapData->currentMap = 0;
             *restart = true;
         }
 

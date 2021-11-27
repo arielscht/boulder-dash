@@ -35,7 +35,7 @@ void rockford_update(ROCKFORD *player,
                      bool *restart,
                      SOUNDS *sounds,
                      bool exitOpen,
-                     int *currentMap);
+                     MAP_DATA *mapData);
 void rockford_draw(ROCKFORD *player, SPRITES *sprites);
 
 #endif

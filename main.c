@@ -80,6 +80,7 @@ int main()
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     MAP_DATA mapData;
+    mapData.currentMap = 0;
     int mapBlinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
 
@@ -105,7 +106,6 @@ int main()
     bool helpOpen = false;
 
     char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
-    int currentMap = 0;
 
     ALLEGRO_EVENT event;
 
@@ -122,7 +122,7 @@ int main()
             start_game(loadedMap,
                        &mapData,
                        &entitiesQuantities,
-                       maps[currentMap],
+                       maps[mapData.currentMap],
                        &player,
                        &boulders,
                        &dirts,
@@ -148,9 +148,9 @@ int main()
                 boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
                 diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, &mapData, &sounds);
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
-                rockford_update(&player, key, loadedMap, explosions, &restart, &sounds, exits[1].shown, &currentMap);
+                rockford_update(&player, key, loadedMap, explosions, &restart, &sounds, exits[1].shown, &mapData);
                 rockford_entrance_update(&exits[0], &player, &sounds);
-                exit_update(&exits[1], &player, &restart, &currentMap, &mapData);
+                exit_update(&exits[1], &player, &restart, &mapData);
                 // print_map(loadedMap);
             }
 

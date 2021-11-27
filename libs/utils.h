@@ -28,6 +28,7 @@ typedef struct MAP_DATA
     int diamondsToWin;
     int levelScore;
     int scorePerDiamond;
+    int currentMap;
 } MAP_DATA;
 
 void must_init(bool test, const char *description);
