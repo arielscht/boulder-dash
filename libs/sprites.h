@@ -26,7 +26,6 @@ typedef struct SPRITES
     ALLEGRO_BITMAP *boulder;
     ALLEGRO_BITMAP *wall;
     ALLEGRO_BITMAP *steel_wall;
-
     ALLEGRO_BITMAP *magic_wall;
     ALLEGRO_BITMAP *firefly;
     ALLEGRO_BITMAP *butterfly;
@@ -35,6 +34,7 @@ typedef struct SPRITES
     ALLEGRO_BITMAP *exit;
 
     ALLEGRO_BITMAP *explosion;
+    ALLEGRO_BITMAP *diamondIcon;
 } SPRITES;
 
 #endif
