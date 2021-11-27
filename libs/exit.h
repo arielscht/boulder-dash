@@ -15,6 +15,8 @@ typedef struct EXIT
     bool shown;
 } EXIT;
 
+void thunder_update(ROCKFORD *player, MAP_DATA *mapData, EXIT *exit, SOUNDS *sounds);
+
 void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, MAP_DATA *mapData);
 
 void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit);

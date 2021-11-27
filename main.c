@@ -82,12 +82,15 @@ int main()
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     MAP_DATA mapData;
     mapData.currentMap = 0;
-    int mapBlinkedFrame = 0;
+    mapData.blinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
 
     //PLAYER
     ROCKFORD player;
     rockford_init_score(&player);
+
+    //CHEAT CODE
+    bool cheatActivated = false;
 
     //ENTITIES
     BOULDER *boulders = NULL;
@@ -134,7 +137,7 @@ int main()
                        &exits[0],
                        &exits[1]);
 
-            mapBlinkedFrame = 0;
+            mapData.blinkedFrame = 0;
             restart = false;
         }
 
@@ -159,10 +162,11 @@ int main()
             if (key[ALLEGRO_KEY_ESCAPE])
                 done = true;
 
-            if (key[ALLEGRO_KEY_R])
+            //CHEAT CODE
+            if (key[ALLEGRO_KEY_K] && key[ALLEGRO_KEY_L] && key[ALLEGRO_KEY_N] && !cheatActivated)
             {
-                scoreOpen = false;
-                restart = true;
+                cheatActivated = true;
+                player.lives += 5;
             }
 
             redraw = true;
@@ -170,8 +174,21 @@ int main()
         case ALLEGRO_EVENT_KEY_DOWN:
             if (event.keyboard.keycode == ALLEGRO_KEY_H || event.keyboard.keycode == ALLEGRO_KEY_F5)
                 helpOpen = !helpOpen;
-            if (event.keyboard.keycode == ALLEGRO_KEY_K)
-                scoreOpen = !scoreOpen;
+            if (event.keyboard.keycode == ALLEGRO_KEY_R)
+            {
+                if (player.lives == 0 && scoreOpen == false)
+                {
+                    cheatActivated = false;
+                    scoreOpen = true;
+                    mapData.currentMap = 0;
+                }
+                else
+                {
+                    player.lives -= 1;
+                    scoreOpen = false;
+                    restart = true;
+                }
+            }
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             done = true;
@@ -185,18 +202,9 @@ int main()
         if (redraw && al_is_event_queue_empty(queue))
         {
             display_pre_draw(buffer);
-
             al_clear_to_color(al_map_rgb(0, 0, 0));
 
-            if (mapBlinkedFrame < 10 && player.diamondsObtained == mapData.diamondsToWin)
-            {
-                if (mapBlinkedFrame == 0)
-                    al_play_sample(sounds.spawn, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
-                mapBlinkedFrame++;
-                exits[1].shown = true;
-                al_clear_to_color(al_map_rgb(255, 255, 255));
-            }
-
+            thunder_update(&player, &mapData, &exits[1], &sounds);
             hud_draw(font, &player, &sprites, &mapData);
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);

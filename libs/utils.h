@@ -29,6 +29,7 @@ typedef struct MAP_DATA
     int levelScore;
     int scorePerDiamond;
     int currentMap;
+    int blinkedFrame;
 } MAP_DATA;
 
 void must_init(bool test, const char *description);

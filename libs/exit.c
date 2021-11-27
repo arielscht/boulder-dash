@@ -1,5 +1,17 @@
 #include "exit.h"
 
+void thunder_update(ROCKFORD *player, MAP_DATA *mapData, EXIT *exit, SOUNDS *sounds)
+{
+    if (mapData->blinkedFrame < 10 && player->diamondsObtained == mapData->diamondsToWin)
+    {
+        if (mapData->blinkedFrame == 0)
+            al_play_sample(sounds->spawn, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+        mapData->blinkedFrame += 1;
+        exit->shown = true;
+        al_clear_to_color(al_map_rgb(255, 255, 255));
+    }
+}
+
 void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, MAP_DATA *mapData)
 {
     if (!exit->shown)

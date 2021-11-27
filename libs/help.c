@@ -28,7 +28,13 @@ void help_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text)
         al_map_rgb(0, 0, 0),
         340, 360,
         600, 20,
-        0, "- Press R to restart your level.");
+        0, "- Press R to restart your level, but be aware that you will lose one life.");
+    al_draw_multiline_text(
+        text,
+        al_map_rgb(0, 0, 0),
+        340, 410,
+        600, 20,
+        0, "- Press K L N together to get 5 extra lives, but you can use it only once.");
     al_draw_text(
         text,
         al_map_rgb(0, 0, 0),
