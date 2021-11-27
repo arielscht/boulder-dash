@@ -73,6 +73,7 @@ void rockford_update(ROCKFORD *player,
                      char map[MAP_HEIGHT][MAP_WIDTH],
                      EXPLOSION *explosions,
                      bool *restart,
+                     bool *scoreOpen,
                      SOUNDS *sounds,
                      bool exitOpen,
                      MAP_DATA *mapData)
@@ -87,8 +88,15 @@ void rockford_update(ROCKFORD *player,
         if (player->delay % 150 == 0)
         {
             if (player->lives == -1)
+            {
+                save_score(player->score);
                 mapData->currentMap = 0;
-            *restart = true;
+                *scoreOpen = true;
+            }
+            else
+            {
+                *restart = true;
+            }
         }
 
         return;

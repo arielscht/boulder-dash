@@ -24,6 +24,6 @@
 #define MAP_EXIT 'E'
 #define MAP_BLANK 'O'
 
-#define DIAMOND_SCORE 15
+#define MAX_SCORE_STORED 5
 
 #endif

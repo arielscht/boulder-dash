@@ -25,6 +25,7 @@
 #include "./libs/game.h"
 #include "./libs/help.h"
 #include "./libs/audio.h"
+#include "./libs/score.h"
 
 int main()
 {
@@ -104,6 +105,7 @@ int main()
     bool redraw = true;
     bool restart = true;
     bool helpOpen = false;
+    bool scoreOpen = false;
 
     char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
 
@@ -141,14 +143,14 @@ int main()
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
 
-            if (!helpOpen)
+            if (!helpOpen && !scoreOpen)
             {
                 explosion_update(explosions, loadedMap);
                 wall_update(walls, entitiesQuantities.wall, loadedMap);
                 boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
                 diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, &mapData, &sounds);
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
-                rockford_update(&player, key, loadedMap, explosions, &restart, &sounds, exits[1].shown, &mapData);
+                rockford_update(&player, key, loadedMap, explosions, &restart, &scoreOpen, &sounds, exits[1].shown, &mapData);
                 rockford_entrance_update(&exits[0], &player, &sounds);
                 exit_update(&exits[1], &player, &restart, &mapData);
                 // print_map(loadedMap);
@@ -158,13 +160,18 @@ int main()
                 done = true;
 
             if (key[ALLEGRO_KEY_R])
+            {
+                scoreOpen = false;
                 restart = true;
+            }
 
             redraw = true;
             break;
         case ALLEGRO_EVENT_KEY_DOWN:
             if (event.keyboard.keycode == ALLEGRO_KEY_H || event.keyboard.keycode == ALLEGRO_KEY_F5)
                 helpOpen = !helpOpen;
+            if (event.keyboard.keycode == ALLEGRO_KEY_K)
+                scoreOpen = !scoreOpen;
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             done = true;
@@ -202,6 +209,8 @@ int main()
             explosion_draw(explosions, &sprites);
             if (helpOpen)
                 help_draw(menuTitleFont, menuSubtitleFont, menuTextFont);
+            if (scoreOpen)
+                score_draw(menuTitleFont, menuSubtitleFont, menuTextFont, player.score);
 
             display_post_draw(display, buffer);
             redraw = false;

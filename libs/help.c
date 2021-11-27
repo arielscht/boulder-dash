@@ -40,3 +40,25 @@ void help_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text)
         (BUFFER_WIDTH / 2) + 40, 610,
         0, "Press h or f5 to play");
 }
+
+void score_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text, int currentScore)
+{
+    al_draw_filled_rectangle(0, 0, 1280, 736, al_map_rgba(0, 0, 0, 100));
+    al_draw_filled_rounded_rectangle(320, 100, 960, 636, 10, 10, al_map_rgba(184, 184, 184, 255));
+    al_draw_text(title, al_map_rgb(0, 0, 0), BUFFER_WIDTH / 2, 120, ALLEGRO_ALIGN_CENTRE, "BEST SCORES");
+    al_draw_textf(title, al_map_rgb(0, 0, 0), BUFFER_WIDTH / 2, 200, ALLEGRO_ALIGN_CENTRE, "%d", currentScore);
+
+    int savedScore[MAX_SCORE_STORED];
+    int scoreQtd = 0;
+
+    read_score(savedScore, &scoreQtd);
+
+    for (int i = 0; i < scoreQtd; i++)
+    {
+        al_draw_textf(
+            title,
+            al_map_rgb(0, 0, 0),
+            530, 280 + i * (60),
+            0, "%d. %d", i + 1, savedScore[i]);
+    }
+}

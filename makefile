@@ -9,7 +9,7 @@ ALLEGRO_LIBS = `pkg-config allegro-5\
 				allegro_primitives-5\
 				--libs --cflags`
 
-OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o help.o audio.o ./libs/constants.h main.o
+OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o help.o audio.o score.o ./libs/constants.h main.o
 
 all: boulder-dash
 
@@ -72,6 +72,9 @@ help.o: ./libs/help.c ./libs/help.h
 
 audio.o: ./libs/audio.c ./libs/audio.h
 	gcc -c ./libs/audio.c $(CFLAGS);
+
+score.o: ./libs/score.c ./libs/score.h
+	gcc -c ./libs/score.c $(CFLAGS);
 
 constants.h: ./libs/constants.h
 
