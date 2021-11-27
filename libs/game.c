@@ -2,9 +2,7 @@
 
 void start_game(
     char map[MAP_HEIGHT][MAP_WIDTH],
-    int *diamondsToWin,
-    int *levelScore,
-    int *scorePerDiamond,
+    MAP_DATA *mapData,
     ENTITIES_QUANTITIES *entitiesQuantities,
     char *mapFile,
     ROCKFORD *player,
@@ -17,7 +15,7 @@ void start_game(
     EXIT *levelExit)
 {
     init_entities_count(entitiesQuantities);
-    read_map(map, mapFile, entitiesQuantities, diamondsToWin, scorePerDiamond, levelScore);
+    read_map(map, mapFile, entitiesQuantities, mapData);
 
     rockford_init_map(player, map, player->lives == -1);
     rockford_entrance_init(player, rockfordEntrance);

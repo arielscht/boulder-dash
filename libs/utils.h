@@ -23,6 +23,13 @@ typedef struct ENTITIES_QUANTITIES
     int diamond;
 } ENTITIES_QUANTITIES;
 
+typedef struct MAP_DATA
+{
+    int diamondsToWin;
+    int levelScore;
+    int scorePerDiamond;
+} MAP_DATA;
+
 void must_init(bool test, const char *description);
 
 void must_alloc(bool test, const char *description);

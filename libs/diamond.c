@@ -65,7 +65,7 @@ void diamond_update(DIAMOND *diamonds,
                     int diamondQuantity,
                     ROCKFORD *player,
                     char map[MAP_HEIGHT][MAP_WIDTH],
-                    int scorePerDiamond,
+                    MAP_DATA *mapData,
                     SOUNDS *sounds)
 {
     for (int i = 0; i < diamondQuantity; i++)
@@ -94,7 +94,7 @@ void diamond_update(DIAMOND *diamonds,
             al_play_sample(sounds->getDiamond, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
             diamonds[i].shown = false;
             player->diamondsObtained++;
-            player->score += scorePerDiamond;
+            player->score += mapData->scorePerDiamond;
         }
 
         diamonds[i].sourceX += SPRITE_WIDTH;

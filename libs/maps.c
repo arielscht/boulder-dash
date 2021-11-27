@@ -3,9 +3,7 @@
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
               char *mapFileName,
               ENTITIES_QUANTITIES *entities,
-              int *diamondsToWin,
-              int *scorePerDiamond,
-              int *levelScore)
+              MAP_DATA *mapData)
 {
     FILE *mapFile = fopen(mapFileName, "r");
 
@@ -21,7 +19,7 @@ void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
         fgetc(mapFile);
     }
 
-    fscanf(mapFile, "%d %d %d", diamondsToWin, scorePerDiamond, levelScore);
+    fscanf(mapFile, "%d %d %d", &mapData->diamondsToWin, &mapData->scorePerDiamond, &mapData->levelScore);
 
     for (int i = 0; i < MAP_HEIGHT; i++)
     {

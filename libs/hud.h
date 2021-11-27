@@ -6,6 +6,9 @@
 #include "rockford.h"
 #include "sprites.h"
 
-void hud_draw(ALLEGRO_FONT *font, ROCKFORD *player, SPRITES *sprites, int diamondsToWin, int scorePerDiamond);
+void hud_draw(ALLEGRO_FONT *font,
+              ROCKFORD *player,
+              SPRITES *sprites,
+              MAP_DATA *mapData);
 
 #endif

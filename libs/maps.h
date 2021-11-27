@@ -14,9 +14,7 @@
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
               char *mapFile,
               ENTITIES_QUANTITIES *entities,
-              int *diamondsToWin,
-              int *scorePerDiamond,
-              int *levelScore);
+              MAP_DATA *mapData);
 
 void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
               BOULDER *boulders,

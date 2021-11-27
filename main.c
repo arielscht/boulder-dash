@@ -79,9 +79,7 @@ int main()
 
     //MAP
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
-    int diamondsToWin;
-    int levelScore;
-    int scorePerDiamond;
+    MAP_DATA mapData;
     int mapBlinkedFrame = 0;
     ENTITIES_QUANTITIES entitiesQuantities;
 
@@ -122,9 +120,7 @@ int main()
             free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
 
             start_game(loadedMap,
-                       &diamondsToWin,
-                       &levelScore,
-                       &scorePerDiamond,
+                       &mapData,
                        &entitiesQuantities,
                        maps[currentMap],
                        &player,
@@ -150,11 +146,11 @@ int main()
                 explosion_update(explosions, loadedMap);
                 wall_update(walls, entitiesQuantities.wall, loadedMap);
                 boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
-                diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, scorePerDiamond, &sounds);
+                diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, &mapData, &sounds);
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
                 rockford_update(&player, key, loadedMap, explosions, &restart, &sounds, exits[1].shown, &currentMap);
                 rockford_entrance_update(&exits[0], &player, &sounds);
-                exit_update(&exits[1], &player, &restart, &currentMap, &levelScore);
+                exit_update(&exits[1], &player, &restart, &currentMap, &mapData);
                 // print_map(loadedMap);
             }
 
@@ -185,7 +181,7 @@ int main()
 
             al_clear_to_color(al_map_rgb(0, 0, 0));
 
-            if (mapBlinkedFrame < 10 && player.diamondsObtained == diamondsToWin)
+            if (mapBlinkedFrame < 10 && player.diamondsObtained == mapData.diamondsToWin)
             {
                 if (mapBlinkedFrame == 0)
                     al_play_sample(sounds.spawn, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
@@ -194,7 +190,7 @@ int main()
                 al_clear_to_color(al_map_rgb(255, 255, 255));
             }
 
-            hud_draw(font, &player, &sprites, diamondsToWin, scorePerDiamond);
+            hud_draw(font, &player, &sprites, &mapData);
             dirt_draw(dirts, entitiesQuantities.dirt, &sprites);
             steel_wall_draw(steelWalls, entitiesQuantities.steelWall, &sprites);
             wall_draw(walls, entitiesQuantities.wall, &sprites);

@@ -18,7 +18,7 @@ void diamond_update(DIAMOND *diamonds,
                     int diamondQuantity,
                     ROCKFORD *player,
                     char map[MAP_HEIGHT][MAP_WIDTH],
-                    int scorePerDiamond,
+                    MAP_DATA *mapData,
                     SOUNDS *sounds);
 
 void diamond_draw(DIAMOND *diamonds, int diamondQuantity, SPRITES *sprites);

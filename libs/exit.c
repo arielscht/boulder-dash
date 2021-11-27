@@ -1,6 +1,6 @@
 #include "exit.h"
 
-void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, int *currentMap, int *levelScore)
+void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, int *currentMap, MAP_DATA *mapData)
 {
     if (!exit->shown)
         return;
@@ -17,10 +17,10 @@ void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, int *currentMap, i
 
     if (exit->x == player->x && exit->y == player->y)
     {
-        int obtainedScore = player->score + *levelScore - player->previousScore;
+        int obtainedScore = player->score + mapData->levelScore - player->previousScore;
         if (obtainedScore / 500 >= 1)
             player->lives += obtainedScore / 500;
-        player->previousScore = player->score + *levelScore;
+        player->previousScore = player->score + mapData->levelScore;
         *restart = true;
         *currentMap = *currentMap + 1;
     }
