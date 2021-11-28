@@ -19,4 +19,6 @@ void handle_keydown(ALLEGRO_EVENT event,
                     MAP_DATA *mapData,
                     GAME_FLAGS *gameFlags);
 
+void handle_cheatcode(unsigned char *key, ROCKFORD *player, GAME_FLAGS *gameFlags);
+
 #endif

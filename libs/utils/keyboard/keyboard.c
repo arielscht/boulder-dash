@@ -31,7 +31,7 @@ void handle_keydown(
 {
     if (event.keyboard.keycode == ALLEGRO_KEY_H || event.keyboard.keycode == ALLEGRO_KEY_F5)
         gameFlags->helpOpen = !gameFlags->helpOpen;
-    if (event.keyboard.keycode == ALLEGRO_KEY_R)
+    else if (event.keyboard.keycode == ALLEGRO_KEY_R)
     {
         if (player->lives == 0 && gameFlags->scoreOpen == false)
         {
@@ -45,5 +45,18 @@ void handle_keydown(
             gameFlags->scoreOpen = false;
             gameFlags->restart = true;
         }
+    }
+    else if (event.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+    {
+        gameFlags->done = true;
+    }
+}
+
+void handle_cheatcode(unsigned char *key, ROCKFORD *player, GAME_FLAGS *gameFlags)
+{
+    if (key[ALLEGRO_KEY_K] && key[ALLEGRO_KEY_L] && key[ALLEGRO_KEY_N] && !gameFlags->cheatActivated)
+    {
+        gameFlags->cheatActivated = true;
+        player->lives += 5;
     }
 }

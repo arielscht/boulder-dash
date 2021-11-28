@@ -151,16 +151,7 @@ int main()
                 rockford_entrance_update(&exits[0], &player, &sounds);
                 exit_update(&exits[1], &player, &gameFlags, &mapData);
                 // print_map(loadedMap);
-            }
-
-            if (key[ALLEGRO_KEY_ESCAPE])
-                gameFlags.done = true;
-
-            //CHEAT CODE
-            if (key[ALLEGRO_KEY_K] && key[ALLEGRO_KEY_L] && key[ALLEGRO_KEY_N] && !gameFlags.cheatActivated)
-            {
-                gameFlags.cheatActivated = true;
-                player.lives += 5;
+                handle_cheatcode(key, &player, &gameFlags);
             }
 
             gameFlags.redraw = true;
