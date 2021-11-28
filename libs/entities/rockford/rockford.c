@@ -86,7 +86,7 @@ void rockford_update(ROCKFORD *player,
 
         if (player->delay % 150 == 0)
         {
-            if (player->lives == -1)
+            if (player->lives < 0)
             {
                 save_score(player->score);
                 mapData->currentMap = 0;

@@ -30,6 +30,7 @@ typedef struct MAP_DATA
     int scorePerDiamond;
     int currentMap;
     int blinkedFrame;
+    int levelTime;
 } MAP_DATA;
 
 typedef struct GAME_FLAGS

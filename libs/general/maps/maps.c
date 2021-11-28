@@ -19,7 +19,11 @@ void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
         fgetc(mapFile);
     }
 
-    fscanf(mapFile, "%d %d %d", &mapData->diamondsToWin, &mapData->scorePerDiamond, &mapData->levelScore);
+    fscanf(mapFile, "%d %d %d %d",
+           &mapData->diamondsToWin,
+           &mapData->scorePerDiamond,
+           &mapData->levelScore,
+           &mapData->levelTime);
 
     for (int i = 0; i < MAP_HEIGHT; i++)
     {

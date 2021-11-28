@@ -24,6 +24,7 @@
 #include "./libs/general/game/game.h"
 #include "./libs/general/help/help.h"
 #include "./libs/general/score/score.h"
+#include "./libs/general/timer/timer.h"
 #include "./libs/loadables/sprites/sprites.h"
 #include "./libs/loadables/audio/audio.h"
 
@@ -42,6 +43,7 @@ int main()
     //TIMER AND QUEUE
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
     must_init(timer, "timer");
+    int frameCount = 0;
 
     ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
     must_init(queue, "queue");
@@ -79,6 +81,7 @@ int main()
     explosion_init(explosions);
 
     //MAP
+    char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     MAP_DATA mapData;
     mapData.currentMap = 0;
@@ -103,8 +106,6 @@ int main()
 
     GAME_FLAGS gameFlags;
     init_game_flags(&gameFlags);
-
-    char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
 
     ALLEGRO_EVENT event;
 
@@ -131,6 +132,7 @@ int main()
                        &exits[0],
                        &exits[1]);
 
+            frameCount = 0;
             mapData.blinkedFrame = 0;
             gameFlags.restart = false;
         }
@@ -150,6 +152,7 @@ int main()
                 rockford_update(&player, key, loadedMap, explosions, &gameFlags, &sounds, exits[1].shown, &mapData);
                 rockford_entrance_update(&exits[0], &player, &sounds);
                 exit_update(&exits[1], &player, &gameFlags, &mapData);
+                timer_update(&frameCount, &player, &mapData);
                 // print_map(loadedMap);
                 handle_cheatcode(key, &player, &gameFlags);
             }
