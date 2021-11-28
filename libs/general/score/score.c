@@ -3,8 +3,6 @@
 void insert(int array[MAX_SCORE_STORED], int scoreQtd, int value, int index)
 {
     int i = scoreQtd - 1;
-    printf("I: %d\n", i);
-    printf("SCORE QTD: %d\n", scoreQtd);
     for (; i > index; i--)
     {
         array[i] = array[i - 1];
