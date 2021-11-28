@@ -89,9 +89,6 @@ int main()
     ROCKFORD player;
     rockford_init_score(&player);
 
-    //CHEAT CODE
-    bool cheatActivated = false;
-
     //ENTITIES
     BOULDER *boulders = NULL;
     DIRT *dirts = NULL;
@@ -109,6 +106,7 @@ int main()
     bool restart = true;
     bool helpOpen = false;
     bool scoreOpen = false;
+    bool cheatActivated = false;
 
     char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
 
@@ -172,23 +170,7 @@ int main()
             redraw = true;
             break;
         case ALLEGRO_EVENT_KEY_DOWN:
-            if (event.keyboard.keycode == ALLEGRO_KEY_H || event.keyboard.keycode == ALLEGRO_KEY_F5)
-                helpOpen = !helpOpen;
-            if (event.keyboard.keycode == ALLEGRO_KEY_R)
-            {
-                if (player.lives == 0 && scoreOpen == false)
-                {
-                    cheatActivated = false;
-                    scoreOpen = true;
-                    mapData.currentMap = 0;
-                }
-                else
-                {
-                    player.lives -= 1;
-                    scoreOpen = false;
-                    restart = true;
-                }
-            }
+            handle_keydown(event, &player, &mapData, &helpOpen, &scoreOpen, &cheatActivated, &restart);
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
             done = true;
