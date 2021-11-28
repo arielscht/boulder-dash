@@ -15,8 +15,8 @@ void rockford_init_map(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH], bool r
         {
             if (map[i][j] == MAP_ROCKFORD)
             {
-                player->x = (i + 1) * SPRITE_WIDTH;
-                player->y = j * SPRITE_HEIGHT;
+                player->x = j * SPRITE_WIDTH;
+                player->y = SPRITE_HEIGHT * (i + 1);
             }
         }
     }
