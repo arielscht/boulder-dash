@@ -11,6 +11,7 @@ void start_game(
     DIAMOND **diamonds,
     STEEL_WALL **steelWalls,
     WALL **walls,
+    FIREFLY **fireflies,
     EXIT *rockfordEntrance,
     EXIT *levelExit)
 {
@@ -20,7 +21,7 @@ void start_game(
     rockford_init_map(player, map, player->lives < 0);
     rockford_entrance_init(player, rockfordEntrance);
 
-    alloc_entities(entitiesQuantities, boulders, diamonds, dirts, steelWalls, walls);
+    alloc_entities(entitiesQuantities, boulders, diamonds, dirts, steelWalls, walls, fireflies);
 
-    init_map(map, *boulders, *diamonds, *dirts, *steelWalls, *walls, levelExit);
+    init_map(map, *boulders, *diamonds, *dirts, *steelWalls, *walls, *fireflies, levelExit);
 }

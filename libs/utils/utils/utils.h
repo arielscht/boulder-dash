@@ -21,6 +21,7 @@ typedef struct ENTITIES_QUANTITIES
     int wall;
     int steelWall;
     int diamond;
+    int firefly;
 } ENTITIES_QUANTITIES;
 
 typedef struct MAP_DATA

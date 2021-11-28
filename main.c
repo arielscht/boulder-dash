@@ -19,6 +19,7 @@
 #include "./libs/entities/steelWall/steelWall.h"
 #include "./libs/entities/explosion/explosion.h"
 #include "./libs/entities/exit/exit.h"
+#include "./libs/entities/firefly/firefly.h"
 #include "./libs/general/maps/maps.h"
 #include "./libs/general/hud/hud.h"
 #include "./libs/general/game/game.h"
@@ -97,6 +98,7 @@ int main()
     DIRT *dirts = NULL;
     DIAMOND *diamonds = NULL;
     STEEL_WALL *steelWalls = NULL;
+    FIREFLY *fireflies = NULL;
     WALL *walls = NULL;
     EXIT exits[2];
 
@@ -117,7 +119,7 @@ int main()
 
         if (gameFlags.restart)
         {
-            free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
+            free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls, &fireflies);
 
             start_game(loadedMap,
                        &mapData,
@@ -129,6 +131,7 @@ int main()
                        &diamonds,
                        &steelWalls,
                        &walls,
+                       &fireflies,
                        &exits[0],
                        &exits[1]);
 
@@ -148,12 +151,13 @@ int main()
                 wall_update(walls, entitiesQuantities.wall, loadedMap);
                 boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
                 diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, &mapData, &sounds);
+                firefly_update(fireflies, entitiesQuantities.firefly, loadedMap);
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
                 rockford_update(&player, key, loadedMap, explosions, &gameFlags, &sounds, exits[1].shown, &mapData);
                 rockford_entrance_update(&exits[0], &player, &sounds);
                 exit_update(&exits[1], &player, &gameFlags, &mapData);
                 timer_update(&frameCount, &player, &mapData);
-                // print_map(loadedMap);
+                print_map(loadedMap);
                 handle_cheatcode(key, &player, &gameFlags);
             }
 
@@ -183,6 +187,7 @@ int main()
             wall_draw(walls, entitiesQuantities.wall, &sprites);
             boulder_draw(boulders, entitiesQuantities.boulder, &sprites);
             diamond_draw(diamonds, entitiesQuantities.diamond, &sprites);
+            firefly_draw(fireflies, entitiesQuantities.firefly, &sprites);
             exit_draw(&exits[1], &sprites, true);
             rockford_draw(&player, &sprites);
             exit_draw(&exits[0], &sprites, false);
@@ -207,7 +212,7 @@ int main()
     al_destroy_font(menuSubtitleFont);
     al_destroy_font(menuTextFont);
 
-    free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
+    free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls, &fireflies);
 
     return 0;
 }

@@ -7,6 +7,7 @@
 #include "../../entities/diamond/diamond.h"
 #include "../../entities/steelWall/steelWall.h"
 #include "../../entities/wall/wall.h"
+#include "../../entities/firefly/firefly.h"
 #include "../../entities/dirt/dirt.h"
 #include "../../entities/exit/exit.h"
 #include "../../utils/constants.h"
@@ -22,6 +23,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH],
               DIRT *dirts,
               STEEL_WALL *steelWalls,
               WALL *walls,
+              FIREFLY *fireflies,
               EXIT *exit);
 
 void print_map(char map[MAP_HEIGHT][MAP_WIDTH]);

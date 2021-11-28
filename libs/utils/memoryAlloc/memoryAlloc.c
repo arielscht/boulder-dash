@@ -6,7 +6,8 @@ void alloc_entities(
     DIAMOND **diamonds,
     DIRT **dirts,
     STEEL_WALL **steelWalls,
-    WALL **walls)
+    WALL **walls,
+    FIREFLY **fireflies)
 {
     *boulders = calloc(entities->boulder, sizeof(BOULDER));
     must_alloc(*boulders, "boulders");
@@ -22,6 +23,9 @@ void alloc_entities(
 
     *walls = calloc(entities->wall, sizeof(WALL));
     must_alloc(*walls, "walls");
+
+    *fireflies = calloc(entities->firefly, sizeof(FIREFLY));
+    must_alloc(*walls, "fireflies");
 }
 
 void free_entities(
@@ -29,7 +33,8 @@ void free_entities(
     DIAMOND **diamonds,
     DIRT **dirts,
     STEEL_WALL **steelWalls,
-    WALL **walls)
+    WALL **walls,
+    FIREFLY **fireflies)
 {
     if (*boulders != NULL)
     {
@@ -55,5 +60,10 @@ void free_entities(
     {
         free(*walls);
         *walls = NULL;
+    }
+    if (*fireflies != NULL)
+    {
+        free(*fireflies);
+        *fireflies = NULL;
     }
 }

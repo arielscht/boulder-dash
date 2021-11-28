@@ -26,6 +26,7 @@ void init_entities_count(ENTITIES_QUANTITIES *entities)
     entities->dirt = 0;
     entities->steelWall = 0;
     entities->wall = 0;
+    entities->firefly = 0;
 }
 
 void init_game_flags(GAME_FLAGS *gameFlags)

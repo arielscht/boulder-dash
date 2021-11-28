@@ -46,6 +46,9 @@ void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
             case MAP_WALL:
                 entities->wall++;
                 break;
+            case MAP_FIREFLY:
+                entities->firefly++;
+                break;
             }
         }
     }
@@ -58,6 +61,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
               DIRT *dirts,
               STEEL_WALL *steelWalls,
               WALL *walls,
+              FIREFLY *fireflies,
               EXIT *exit)
 {
     int boulderIndex = 0;
@@ -65,6 +69,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
     int dirtIndex = 0;
     int steelWallIndex = 0;
     int wallIndex = 0;
+    int fireflyIndex = 0;
 
     for (int i = 0; i < MAP_HEIGHT; i++)
     {
@@ -108,6 +113,16 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
                 walls[wallIndex].y = SPRITE_HEIGHT * (i + 1);
                 walls[wallIndex].shown = true;
                 wallIndex++;
+                break;
+            case MAP_FIREFLY:
+                fireflies[fireflyIndex].x = SPRITE_WIDTH * j;
+                fireflies[fireflyIndex].y = SPRITE_HEIGHT * (i + 1);
+                fireflies[fireflyIndex].shown = true;
+                fireflies[fireflyIndex].exploded = false;
+                fireflies[fireflyIndex].sourceX = 0;
+                fireflies[fireflyIndex].sourceY = 0;
+                fireflies[fireflyIndex].delay = 0;
+                fireflyIndex++;
                 break;
             case MAP_EXIT:
                 exit->x = SPRITE_WIDTH * j;

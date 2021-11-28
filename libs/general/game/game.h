@@ -8,6 +8,7 @@
 #include "../../entities/diamond/diamond.h"
 #include "../../entities/steelWall/steelWall.h"
 #include "../../entities/wall/wall.h"
+#include "../../entities/firefly/firefly.h"
 #include "../../entities/exit/exit.h"
 #include "../../utils/utils/utils.h"
 #include "../maps/maps.h"
@@ -24,6 +25,7 @@ void start_game(
     DIAMOND **diamonds,
     STEEL_WALL **steelWalls,
     WALL **walls,
+    FIREFLY **fireflies,
     EXIT *rockfordEntrance,
     EXIT *levelExit);
 
