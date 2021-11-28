@@ -14,10 +14,11 @@ void start_game(
     EXIT *rockfordEntrance,
     EXIT *levelExit)
 {
+    printf("ROCKFORD LIVES: %d\n", player->lives);
     init_entities_count(entitiesQuantities);
     read_map(map, mapFile, entitiesQuantities, mapData);
 
-    rockford_init_map(player, map, player->lives == -1);
+    rockford_init_map(player, map, player->lives < 0);
     rockford_entrance_init(player, rockfordEntrance);
 
     alloc_entities(entitiesQuantities, boulders, diamonds, dirts, steelWalls, walls);

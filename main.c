@@ -155,7 +155,7 @@ int main()
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
                 rockford_update(&player, key, loadedMap, explosions, &restart, &scoreOpen, &sounds, exits[1].shown, &mapData);
                 rockford_entrance_update(&exits[0], &player, &sounds);
-                exit_update(&exits[1], &player, &restart, &mapData);
+                exit_update(&exits[1], &player, &restart, &scoreOpen, &mapData);
                 // print_map(loadedMap);
             }
 

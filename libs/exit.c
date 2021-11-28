@@ -12,7 +12,7 @@ void thunder_update(ROCKFORD *player, MAP_DATA *mapData, EXIT *exit, SOUNDS *sou
     }
 }
 
-void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, MAP_DATA *mapData)
+void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, bool *scoreOpen, MAP_DATA *mapData)
 {
     if (!exit->shown)
         return;
@@ -33,8 +33,20 @@ void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, MAP_DATA *mapData)
         if (obtainedScore / 500 >= 1)
             player->lives += obtainedScore / 500;
         player->previousScore = player->score + mapData->levelScore;
-        *restart = true;
-        mapData->currentMap += 1;
+        player->score = player->previousScore;
+        if (mapData->currentMap == MAP_QUANTITY - 1)
+        {
+            save_score(player->score + mapData->levelScore);
+            mapData->currentMap = 0;
+            //To cause the score to restore
+            player->lives = -1;
+            *scoreOpen = true;
+        }
+        else
+        {
+            *restart = true;
+            mapData->currentMap += 1;
+        }
     }
 }
 
