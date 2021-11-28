@@ -9,7 +9,7 @@ ALLEGRO_LIBS = `pkg-config allegro-5\
 				allegro_primitives-5\
 				--libs --cflags`
 
-OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o help.o audio.o score.o ./libs/constants.h main.o
+OBJECTS = memoryAlloc.o utils.o display.o sprites.o keyboard.o rockford.o boulder.o dirt.o wall.o steelWall.o diamond.o explosion.o maps.o exit.o hud.o game.o help.o audio.o score.o ./libs/utils/constants.h main.o
 
 all: boulder-dash
 
@@ -19,64 +19,64 @@ boulder-dash: $(OBJECTS)
 main.o: main.c
 	gcc -c main.c $(CFLAGS);
 
-display.o: ./libs/display.c ./libs/display.h
-	gcc -c ./libs/display.c $(CFLAGS);
+display.o: ./libs/utils/display/display.c ./libs/utils/display/display.h
+	gcc -c ./libs/utils/display/display.c $(CFLAGS);
 
-utils.o: ./libs/utils.c ./libs/utils.h
-	gcc -c ./libs/utils.c $(CFLAGS);
+utils.o: ./libs/utils/utils/utils.c ./libs/utils/utils/utils.h
+	gcc -c ./libs/utils/utils/utils.c $(CFLAGS);
 
-sprites.o: ./libs/sprites.c ./libs/sprites.h
-	gcc -c ./libs/sprites.c $(CFLAGS);
+sprites.o: ./libs/loadables/sprites/sprites.c ./libs/loadables/sprites/sprites.h
+	gcc -c ./libs/loadables/sprites/sprites.c $(CFLAGS);
 
-keyboard.o: ./libs/keyboard.c ./libs/keyboard.h
-	gcc -c ./libs/keyboard.c $(CFLAGS);
+keyboard.o: ./libs/utils/keyboard/keyboard.c ./libs/utils/keyboard/keyboard.h
+	gcc -c ./libs/utils/keyboard/keyboard.c $(CFLAGS);
 
-rockford.o: ./libs/rockford.c ./libs/rockford.h
-	gcc -c ./libs/rockford.c $(CFLAGS);
+rockford.o: ./libs/entities/rockford/rockford.c ./libs/entities/rockford/rockford.h
+	gcc -c ./libs/entities/rockford/rockford.c $(CFLAGS);
 
-maps.o: ./libs/maps.c ./libs/maps.h
-	gcc -c ./libs/maps.c $(CFLAGS);
+maps.o: ./libs/general/maps/maps.c ./libs/general/maps/maps.h
+	gcc -c ./libs/general/maps/maps.c $(CFLAGS);
 
-memoryAlloc.o: ./libs/memoryAlloc.c ./libs/memoryAlloc.h
-	gcc -c ./libs/memoryAlloc.c $(CFLAGS);
+memoryAlloc.o: ./libs/utils/memoryAlloc/memoryAlloc.c ./libs/utils/memoryAlloc/memoryAlloc.h
+	gcc -c ./libs/utils/memoryAlloc/memoryAlloc.c $(CFLAGS);
 
-boulder.o: ./libs/boulder.c ./libs/boulder.h
-	gcc -c ./libs/boulder.c $(CFLAGS);
+boulder.o: ./libs/entities/boulder/boulder.c ./libs/entities/boulder/boulder.h
+	gcc -c ./libs/entities/boulder/boulder.c $(CFLAGS);
 
-dirt.o: ./libs/dirt.c ./libs/dirt.h
-	gcc -c ./libs/dirt.c $(CFLAGS);
+dirt.o: ./libs/entities/dirt/dirt.c ./libs/entities/dirt/dirt.h
+	gcc -c ./libs/entities/dirt/dirt.c $(CFLAGS);
 
-wall.o: ./libs/wall.c ./libs/wall.h
-	gcc -c ./libs/wall.c $(CFLAGS);
+wall.o: ./libs/entities/wall/wall.c ./libs/entities/wall/wall.h
+	gcc -c ./libs/entities/wall/wall.c $(CFLAGS);
 
-steelWall.o: ./libs/steelWall.c ./libs/steelWall.h
-	gcc -c ./libs/steelWall.c $(CFLAGS);
+steelWall.o: ./libs/entities/steelWall/steelWall.c ./libs/entities/steelWall/steelWall.h
+	gcc -c ./libs/entities/steelWall/steelWall.c $(CFLAGS);
 
-diamond.o: ./libs/diamond.c ./libs/diamond.h
-	gcc -c ./libs/diamond.c $(CFLAGS);
+diamond.o: ./libs/entities/diamond/diamond.c ./libs/entities/diamond/diamond.h
+	gcc -c ./libs/entities/diamond/diamond.c $(CFLAGS);
 	
-explosion.o: ./libs/explosion.c ./libs/explosion.h
-	gcc -c ./libs/explosion.c $(CFLAGS);
+explosion.o: ./libs/entities/explosion/explosion.c ./libs/entities/explosion/explosion.h
+	gcc -c ./libs/entities/explosion/explosion.c $(CFLAGS);
 
-exit.o: ./libs/exit.c ./libs/exit.h
-	gcc -c ./libs/exit.c $(CFLAGS);
+exit.o: ./libs/entities/exit/exit.c ./libs/entities/exit/exit.h
+	gcc -c ./libs/entities/exit/exit.c $(CFLAGS);
 
-hud.o: ./libs/hud.c ./libs/hud.h
-	gcc -c ./libs/hud.c $(CFLAGS);
+hud.o: ./libs/general/hud/hud.c ./libs/general/hud/hud.h
+	gcc -c ./libs/general/hud/hud.c $(CFLAGS);
 
-game.o: ./libs/game.c ./libs/game.h
-	gcc -c ./libs/game.c $(CFLAGS);
+game.o: ./libs/general/game/game.c ./libs/general/game/game.h
+	gcc -c ./libs/general/game/game.c $(CFLAGS);
 
-help.o: ./libs/help.c ./libs/help.h
-	gcc -c ./libs/help.c $(CFLAGS);
+help.o: ./libs/general/help/help.c ./libs/general/help/help.h
+	gcc -c ./libs/general/help/help.c $(CFLAGS);
 
-audio.o: ./libs/audio.c ./libs/audio.h
-	gcc -c ./libs/audio.c $(CFLAGS);
+audio.o: ./libs/loadables/audio/audio.c ./libs/loadables/audio/audio.h
+	gcc -c ./libs/loadables/audio/audio.c $(CFLAGS);
 
-score.o: ./libs/score.c ./libs/score.h
-	gcc -c ./libs/score.c $(CFLAGS);
+score.o: ./libs/general/score/score.c ./libs/general/score/score.h
+	gcc -c ./libs/general/score/score.c $(CFLAGS);
 
-constants.h: ./libs/constants.h
+constants.h: ./libs/utils/constants.h
 
 clean:
 	rm -f *.o
