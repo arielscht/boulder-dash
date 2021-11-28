@@ -28,6 +28,16 @@ void init_entities_count(ENTITIES_QUANTITIES *entities)
     entities->wall = 0;
 }
 
+void init_game_flags(GAME_FLAGS *gameFlags)
+{
+    gameFlags->cheatActivated = false;
+    gameFlags->done = false;
+    gameFlags->helpOpen = false;
+    gameFlags->scoreOpen = false;
+    gameFlags->restart = true;
+    gameFlags->redraw = true;
+}
+
 int get_map_x_position(int x)
 {
     return x / SPRITE_WIDTH;

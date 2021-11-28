@@ -6,6 +6,7 @@
 #include "../rockford/rockford.h"
 #include "../../loadables/audio/audio.h"
 #include "../../general/score/score.h"
+#include "../../utils/utils/utils.h"
 
 typedef struct EXIT
 {
@@ -18,7 +19,7 @@ typedef struct EXIT
 
 void thunder_update(ROCKFORD *player, MAP_DATA *mapData, EXIT *exit, SOUNDS *sounds);
 
-void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, bool *scoreOpen, MAP_DATA *mapData);
+void exit_update(EXIT *exit, ROCKFORD *player, GAME_FLAGS *gameFlags, MAP_DATA *mapData);
 
 void exit_draw(EXIT *exit, SPRITES *sprites, bool isExit);
 

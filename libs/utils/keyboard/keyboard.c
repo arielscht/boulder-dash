@@ -27,26 +27,23 @@ void handle_keydown(
     ALLEGRO_EVENT event,
     ROCKFORD *player,
     MAP_DATA *mapData,
-    bool *helpOpen,
-    bool *scoreOpen,
-    bool *cheatActivated,
-    bool *restart)
+    GAME_FLAGS *gameFlags)
 {
     if (event.keyboard.keycode == ALLEGRO_KEY_H || event.keyboard.keycode == ALLEGRO_KEY_F5)
-        *helpOpen = !*helpOpen;
+        gameFlags->helpOpen = !gameFlags->helpOpen;
     if (event.keyboard.keycode == ALLEGRO_KEY_R)
     {
-        if (player->lives == 0 && scoreOpen == false)
+        if (player->lives == 0 && gameFlags->scoreOpen == false)
         {
-            *cheatActivated = false;
-            *scoreOpen = true;
+            gameFlags->cheatActivated = false;
+            gameFlags->scoreOpen = true;
             mapData->currentMap = 0;
         }
         else
         {
             player->lives -= 1;
-            *scoreOpen = false;
-            *restart = true;
+            gameFlags->scoreOpen = false;
+            gameFlags->restart = true;
         }
     }
 }

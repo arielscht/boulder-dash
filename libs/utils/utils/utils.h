@@ -32,11 +32,23 @@ typedef struct MAP_DATA
     int blinkedFrame;
 } MAP_DATA;
 
+typedef struct GAME_FLAGS
+{
+    bool done;
+    bool redraw;
+    bool restart;
+    bool helpOpen;
+    bool scoreOpen;
+    bool cheatActivated;
+} GAME_FLAGS;
+
 void must_init(bool test, const char *description);
 
 void must_alloc(bool test, const char *description);
 
 void init_entities_count(ENTITIES_QUANTITIES *entities);
+
+void init_game_flags(GAME_FLAGS *gameFlags);
 
 int get_map_x_position(int x);
 

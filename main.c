@@ -101,12 +101,8 @@ int main()
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_register_event_source(queue, al_get_display_event_source(display));
 
-    bool done = false;
-    bool redraw = true;
-    bool restart = true;
-    bool helpOpen = false;
-    bool scoreOpen = false;
-    bool cheatActivated = false;
+    GAME_FLAGS gameFlags;
+    init_game_flags(&gameFlags);
 
     char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
 
@@ -118,7 +114,7 @@ int main()
     {
         al_wait_for_event(queue, &event);
 
-        if (restart)
+        if (gameFlags.restart)
         {
             free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
 
@@ -136,7 +132,7 @@ int main()
                        &exits[1]);
 
             mapData.blinkedFrame = 0;
-            restart = false;
+            gameFlags.restart = false;
         }
 
         switch (event.type)
@@ -144,44 +140,44 @@ int main()
         case ALLEGRO_EVENT_TIMER:
             //game logic goes here
 
-            if (!helpOpen && !scoreOpen)
+            if (!gameFlags.helpOpen && !gameFlags.scoreOpen)
             {
                 explosion_update(explosions, loadedMap);
                 wall_update(walls, entitiesQuantities.wall, loadedMap);
                 boulder_update(boulders, entitiesQuantities.boulder, &player, loadedMap, &sounds);
                 diamond_update(diamonds, entitiesQuantities.diamond, &player, loadedMap, &mapData, &sounds);
                 dirt_update(dirts, entitiesQuantities.dirt, &player, loadedMap, &sounds);
-                rockford_update(&player, key, loadedMap, explosions, &restart, &scoreOpen, &sounds, exits[1].shown, &mapData);
+                rockford_update(&player, key, loadedMap, explosions, &gameFlags, &sounds, exits[1].shown, &mapData);
                 rockford_entrance_update(&exits[0], &player, &sounds);
-                exit_update(&exits[1], &player, &restart, &scoreOpen, &mapData);
+                exit_update(&exits[1], &player, &gameFlags, &mapData);
                 // print_map(loadedMap);
             }
 
             if (key[ALLEGRO_KEY_ESCAPE])
-                done = true;
+                gameFlags.done = true;
 
             //CHEAT CODE
-            if (key[ALLEGRO_KEY_K] && key[ALLEGRO_KEY_L] && key[ALLEGRO_KEY_N] && !cheatActivated)
+            if (key[ALLEGRO_KEY_K] && key[ALLEGRO_KEY_L] && key[ALLEGRO_KEY_N] && !gameFlags.cheatActivated)
             {
-                cheatActivated = true;
+                gameFlags.cheatActivated = true;
                 player.lives += 5;
             }
 
-            redraw = true;
+            gameFlags.redraw = true;
             break;
         case ALLEGRO_EVENT_KEY_DOWN:
-            handle_keydown(event, &player, &mapData, &helpOpen, &scoreOpen, &cheatActivated, &restart);
+            handle_keydown(event, &player, &mapData, &gameFlags);
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            done = true;
+            gameFlags.done = true;
         }
 
-        if (done)
+        if (gameFlags.done)
             break;
 
         keyboard_update(&event, key);
 
-        if (redraw && al_is_event_queue_empty(queue))
+        if (gameFlags.redraw && al_is_event_queue_empty(queue))
         {
             display_pre_draw(buffer);
             al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -197,13 +193,13 @@ int main()
             rockford_draw(&player, &sprites);
             exit_draw(&exits[0], &sprites, false);
             explosion_draw(explosions, &sprites);
-            if (helpOpen)
+            if (gameFlags.helpOpen)
                 help_draw(menuTitleFont, menuSubtitleFont, menuTextFont);
-            if (scoreOpen)
+            if (gameFlags.scoreOpen)
                 score_draw(menuTitleFont, menuSubtitleFont, menuTextFont, player.score);
 
             display_post_draw(display, buffer);
-            redraw = false;
+            gameFlags.redraw = false;
         }
     }
 

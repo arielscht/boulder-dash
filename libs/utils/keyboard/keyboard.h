@@ -5,6 +5,7 @@
 #include <allegro5/allegro_image.h>
 #include <stdio.h>
 #include "../../entities/rockford/rockford.h"
+#include "../utils/utils.h"
 
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
@@ -16,9 +17,6 @@ void keyboard_update(ALLEGRO_EVENT *event, unsigned char *key);
 void handle_keydown(ALLEGRO_EVENT event,
                     ROCKFORD *player,
                     MAP_DATA *mapData,
-                    bool *helpOpen,
-                    bool *scoreOpen,
-                    bool *cheatActivated,
-                    bool *restart);
+                    GAME_FLAGS *gameFlags);
 
 #endif

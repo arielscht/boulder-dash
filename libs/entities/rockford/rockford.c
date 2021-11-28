@@ -72,8 +72,7 @@ void rockford_update(ROCKFORD *player,
                      unsigned char *keyboard,
                      char map[MAP_HEIGHT][MAP_WIDTH],
                      EXPLOSION *explosions,
-                     bool *restart,
-                     bool *scoreOpen,
+                     GAME_FLAGS *gameFlags,
                      SOUNDS *sounds,
                      bool exitOpen,
                      MAP_DATA *mapData)
@@ -91,11 +90,12 @@ void rockford_update(ROCKFORD *player,
             {
                 save_score(player->score);
                 mapData->currentMap = 0;
-                *scoreOpen = true;
+                gameFlags->scoreOpen = true;
+                gameFlags->cheatActivated = false;
             }
             else
             {
-                *restart = true;
+                gameFlags->restart = true;
             }
         }
 

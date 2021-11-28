@@ -12,7 +12,7 @@ void thunder_update(ROCKFORD *player, MAP_DATA *mapData, EXIT *exit, SOUNDS *sou
     }
 }
 
-void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, bool *scoreOpen, MAP_DATA *mapData)
+void exit_update(EXIT *exit, ROCKFORD *player, GAME_FLAGS *gameFlags, MAP_DATA *mapData)
 {
     if (!exit->shown)
         return;
@@ -40,11 +40,12 @@ void exit_update(EXIT *exit, ROCKFORD *player, bool *restart, bool *scoreOpen, M
             mapData->currentMap = 0;
             //To cause the score to restore
             player->lives = -1;
-            *scoreOpen = true;
+            gameFlags->scoreOpen = true;
+            gameFlags->cheatActivated = false;
         }
         else
         {
-            *restart = true;
+            gameFlags->restart = true;
             mapData->currentMap += 1;
         }
     }
