@@ -81,7 +81,7 @@ int main()
     explosion_init(explosions);
 
     //MAP
-    char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt"};
+    char maps[MAP_QUANTITY][50] = {"./resources/maps/map1.txt", "./resources/maps/map2.txt", "./resources/maps/map3.txt"};
     char loadedMap[MAP_HEIGHT][MAP_WIDTH];
     MAP_DATA mapData;
     mapData.currentMap = 0;
