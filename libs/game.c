@@ -14,7 +14,6 @@ void start_game(
     EXIT *rockfordEntrance,
     EXIT *levelExit)
 {
-    printf("ROCKFORD LIVES: %d\n", player->lives);
     init_entities_count(entitiesQuantities);
     read_map(map, mapFile, entitiesQuantities, mapData);
 
