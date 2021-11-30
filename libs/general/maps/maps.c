@@ -1,5 +1,6 @@
 #include "maps.h"
 
+//read the map file
 void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
               char *mapFileName,
               ENTITIES_QUANTITIES *entities,
@@ -53,6 +54,7 @@ void read_map(char map[MAP_HEIGHT][MAP_WIDTH],
     fclose(mapFile);
 }
 
+//initiliaze the map
 void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
               DIAMOND *diamonds,
               DIRT *dirts,
@@ -121,6 +123,7 @@ void init_map(char map[MAP_HEIGHT][MAP_WIDTH], BOULDER *boulders,
     }
 }
 
+//print the map
 void print_map(char map[MAP_HEIGHT][MAP_WIDTH])
 {
     printf("\e[1;1H\e[2J");

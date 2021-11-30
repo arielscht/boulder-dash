@@ -1,5 +1,6 @@
 #include "audio.h"
 
+//load all the game sounds
 void audio_init(SOUNDS *sounds)
 {
     sounds->theme = al_load_audio_stream("./resources/sounds/theme.ogg", 2, 2048);
@@ -27,6 +28,7 @@ void audio_init(SOUNDS *sounds)
     must_init(sounds->explosion, "explosion sound");
 };
 
+//destroy all sounds that were previously loaded
 void audio_deinit(SOUNDS *sounds)
 {
     al_destroy_audio_stream(sounds->theme);

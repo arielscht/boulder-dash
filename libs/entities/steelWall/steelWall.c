@@ -1,5 +1,6 @@
 #include "steelWall.h"
 
+//draw the steel walls
 void steel_wall_draw(STEEL_WALL *walls, int wallQuantity, SPRITES *sprites)
 {
     for (int i = 0; i < wallQuantity; i++)

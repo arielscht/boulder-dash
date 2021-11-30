@@ -1,5 +1,6 @@
 #include "rockford.h"
 
+//init the player score
 void rockford_init_score(ROCKFORD *player)
 {
     player->previousScore = 0;
@@ -7,6 +8,7 @@ void rockford_init_score(ROCKFORD *player)
     player->lives = 3;
 }
 
+//init the player and position it in his starting location in the map
 void rockford_init_map(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH], bool restartScore)
 {
     for (int i = 0; i < MAP_HEIGHT; i++)
@@ -21,6 +23,7 @@ void rockford_init_map(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH], bool r
         }
     }
 
+    //restart the map score if the game will start from the very beginning
     if (restartScore)
     {
         rockford_init_score(player);
@@ -39,12 +42,14 @@ void rockford_init_map(ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH], bool r
     player->last_direction = UP_DIR;
 }
 
+//set last Rockford position to blank and new position to Rockford
 void rockford_update_map(int previousX, int previousY, int x, int y, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     map[get_map_y_position(previousY)][get_map_x_position(previousX)] = MAP_BLANK;
     map[get_map_y_position(y)][get_map_x_position(x)] = MAP_ROCKFORD;
 }
 
+//check if Rockford is allowed to move to a certain position
 bool is_allowed_to_move(ROCKFORD *player, char mapItem, SOUNDS *sounds, bool exitOpen)
 {
     if (mapItem == MAP_DIRT ||
@@ -68,6 +73,7 @@ bool is_allowed_to_move(ROCKFORD *player, char mapItem, SOUNDS *sounds, bool exi
     return false;
 }
 
+//updates the rockford
 void rockford_update(ROCKFORD *player,
                      unsigned char *keyboard,
                      char map[MAP_HEIGHT][MAP_WIDTH],
@@ -187,11 +193,13 @@ void rockford_update(ROCKFORD *player,
     }
 }
 
+//draw Rockford
 void rockford_draw(ROCKFORD *player, SPRITES *sprites)
 {
     if (!player->alive)
         return;
 
+    //animate the sprite if rockford is active
     if (player->active)
     {
         if (player->direction == RIGHT_DIR || (player->last_direction == RIGHT_DIR && (player->direction == DOWN_DIR || player->direction == UP_DIR)))
@@ -216,6 +224,7 @@ void rockford_draw(ROCKFORD *player, SPRITES *sprites)
                 player->x, player->y, 0);
         }
     }
+    //otherwise draw its idle animation
     else
     {
         al_draw_bitmap_region(

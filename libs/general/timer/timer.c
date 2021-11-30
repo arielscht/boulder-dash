@@ -1,5 +1,6 @@
 #include "timer.h"
 
+//update the game timer
 void timer_update(int *frameCounter, ROCKFORD *player, MAP_DATA *mapData)
 {
     if (player->entering)

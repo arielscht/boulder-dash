@@ -1,10 +1,12 @@
 #include "keyboard.h"
 
+//init the keyboard
 void keyboard_init(unsigned char *key)
 {
     memset(key, 0, sizeof(unsigned char) * ALLEGRO_KEY_MAX);
 }
 
+//update the keyboard array
 void keyboard_update(ALLEGRO_EVENT *event, unsigned char *key)
 {
     switch (event->type)
@@ -23,6 +25,7 @@ void keyboard_update(ALLEGRO_EVENT *event, unsigned char *key)
     }
 }
 
+//handle keydown to restart the game and open the help menu
 void handle_keydown(
     ALLEGRO_EVENT event,
     ROCKFORD *player,
@@ -52,6 +55,7 @@ void handle_keydown(
     }
 }
 
+//detects the cheatcode
 void handle_cheatcode(unsigned char *key, ROCKFORD *player, GAME_FLAGS *gameFlags)
 {
     if (key[ALLEGRO_KEY_K] && key[ALLEGRO_KEY_L] && key[ALLEGRO_KEY_N] && !gameFlags->cheatActivated)

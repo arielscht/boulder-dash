@@ -1,5 +1,6 @@
 #include "help.h"
 
+//Draw the help menu
 void help_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text)
 {
     al_draw_filled_rectangle(0, 0, 1280, 736, al_map_rgba(0, 0, 0, 100));
@@ -47,6 +48,7 @@ void help_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text)
         0, "Press H or F5 to play");
 }
 
+//Draw the score menu
 void score_draw(ALLEGRO_FONT *title, ALLEGRO_FONT *subtitle, ALLEGRO_FONT *text, int currentScore)
 {
     al_draw_filled_rectangle(0, 0, 1280, 736, al_map_rgba(0, 0, 0, 100));

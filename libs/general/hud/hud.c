@@ -1,5 +1,6 @@
 #include "hud.h"
 
+//draw the hud
 void hud_draw(ALLEGRO_FONT *font, ROCKFORD *player, SPRITES *sprites, MAP_DATA *mapData)
 {
     al_draw_textf(font, al_map_rgb(255, 247, 0), 10, -8, 0, "%d", mapData->diamondsToWin);

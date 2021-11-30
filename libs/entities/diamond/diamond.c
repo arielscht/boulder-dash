@@ -1,5 +1,6 @@
 #include "diamond.h"
 
+//handle diamond fall
 void diamond_falling(
     DIAMOND *diamond,
     int x, int y,
@@ -61,6 +62,7 @@ void diamond_falling(
     }
 }
 
+//update diamonds
 void diamond_update(DIAMOND *diamonds,
                     int diamondQuantity,
                     ROCKFORD *player,
@@ -81,14 +83,17 @@ void diamond_update(DIAMOND *diamonds,
         int diamondX = get_map_x_position(diamonds[i].x);
         int diamondY = get_map_y_position(diamonds[i].y);
 
+        //Set diamond shown to false in case it has exploded
         if (map[diamondY][diamondX] == MAP_BLANK)
         {
             diamonds[i].shown = false;
             return;
         }
 
+        //handle diamond fall
         diamond_falling(&diamonds[i], diamondX, diamondY, player, map, sounds);
 
+        //handle player getting diamond
         if (player->x == diamonds[i].x && player->y == diamonds[i].y && player->alive)
         {
             al_play_sample(sounds->getDiamond, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
@@ -97,6 +102,7 @@ void diamond_update(DIAMOND *diamonds,
             player->score += mapData->scorePerDiamond;
         }
 
+        // update diamond sprite
         diamonds[i].sourceX += SPRITE_WIDTH;
 
         if (diamonds[i].sourceX >= SPRITE_WIDTH * 8)
@@ -104,6 +110,7 @@ void diamond_update(DIAMOND *diamonds,
     }
 }
 
+//draw diamonds
 void diamond_draw(DIAMOND *diamonds, int diamondQuantity, SPRITES *sprites)
 {
     for (int i = 0; i < diamondQuantity; i++)

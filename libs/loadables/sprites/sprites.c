@@ -2,6 +2,7 @@
 #include "sprites.h"
 #include "../../utils/utils/utils.h"
 
+//Grab a sprite from a sprite sheet
 ALLEGRO_BITMAP *sprite_grab(int x, int y, int w, int h, ALLEGRO_BITMAP *spritesheet)
 {
     ALLEGRO_BITMAP *sprite = al_create_sub_bitmap(spritesheet, x, y, w, h);
@@ -9,6 +10,7 @@ ALLEGRO_BITMAP *sprite_grab(int x, int y, int w, int h, ALLEGRO_BITMAP *spritesh
     return sprite;
 }
 
+//load the game sprites
 void sprites_init(SPRITES *sprites)
 {
     sprites->spritesheet = al_load_bitmap("./resources/sprites.png");
@@ -34,6 +36,7 @@ void sprites_init(SPRITES *sprites)
     sprites->diamondIcon = sprite_grab(SPRITE_WIDTH * 8, SPRITE_HEIGHT * 2, SPRITE_WIDTH, SPRITE_HEIGHT / 2, sprites->spritesheet);
 }
 
+//destroy all the sprites that were previously loaded
 void sprites_deinit(SPRITES *sprites)
 {
     al_destroy_bitmap(sprites->spritesheet);

@@ -1,5 +1,6 @@
 #include "memoryAlloc.h"
 
+//allocate the arrays of entities
 void alloc_entities(
     ENTITIES_QUANTITIES *entities,
     BOULDER **boulders,
@@ -24,6 +25,7 @@ void alloc_entities(
     must_alloc(*walls, "walls");
 }
 
+//free the entities array if it was allocated
 void free_entities(
     BOULDER **boulders,
     DIAMOND **diamonds,

@@ -1,5 +1,6 @@
 #include "boulder.h"
 
+//Handle the boulder falling
 void boulder_falling(BOULDER *boulder,
                      int x, int y,
                      ROCKFORD *player,
@@ -61,6 +62,7 @@ void boulder_falling(BOULDER *boulder,
     }
 }
 
+//handle the boulder pushed
 void boulder_pushed(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     if (player->active &&
@@ -101,6 +103,7 @@ void boulder_pushed(BOULDER *boulder, int x, int y, ROCKFORD *player, char map[M
     }
 }
 
+//update boulders
 void boulder_update(
     BOULDER *boulders,
     int boulderQuantity,
@@ -121,17 +124,20 @@ void boulder_update(
         int boulderX = get_map_x_position(boulders[i].x);
         int boulderY = get_map_y_position(boulders[i].y);
 
+        //Set boulder shown to false in case it has exploded
         if (map[boulderY][boulderX] == MAP_BLANK)
         {
             boulders[i].shown = false;
             return;
         }
 
+        //check if the boulder is falling or being pushed
         boulder_pushed(&boulders[i], boulderX, boulderY, player, map);
         boulder_falling(&boulders[i], boulderX, boulderY, player, map, sounds);
     }
 }
 
+//draw boulders
 void boulder_draw(BOULDER *boulders, int boulderQuantity, SPRITES *sprites)
 {
     for (int i = 0; i < boulderQuantity; i++)

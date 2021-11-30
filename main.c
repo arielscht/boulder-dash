@@ -140,8 +140,7 @@ int main()
         switch (event.type)
         {
         case ALLEGRO_EVENT_TIMER:
-            //game logic goes here
-
+            // update game logic
             if (!gameFlags.helpOpen && !gameFlags.scoreOpen)
             {
                 explosion_update(explosions, loadedMap);
@@ -153,16 +152,17 @@ int main()
                 rockford_entrance_update(&exits[0], &player, &sounds);
                 exit_update(&exits[1], &player, &gameFlags, &mapData);
                 timer_update(&frameCount, &player, &mapData);
-                // print_map(loadedMap);
                 handle_cheatcode(key, &player, &gameFlags);
             }
 
             gameFlags.redraw = true;
             break;
         case ALLEGRO_EVENT_KEY_DOWN:
+            //handle keyboard pressed
             handle_keydown(event, &player, &mapData, &gameFlags);
             break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            //close game on window close
             gameFlags.done = true;
         }
 
@@ -171,6 +171,7 @@ int main()
 
         keyboard_update(&event, key);
 
+        //draws the game
         if (gameFlags.redraw && al_is_event_queue_empty(queue))
         {
             display_pre_draw(buffer);
@@ -197,6 +198,7 @@ int main()
         }
     }
 
+    //Free and destroy assets
     sprites_deinit(&sprites);
     audio_deinit(&sounds);
     display_deinit(display, buffer);
@@ -206,7 +208,6 @@ int main()
     al_destroy_font(menuTitleFont);
     al_destroy_font(menuSubtitleFont);
     al_destroy_font(menuTextFont);
-
     free_entities(&boulders, &diamonds, &dirts, &steelWalls, &walls);
 
     return 0;

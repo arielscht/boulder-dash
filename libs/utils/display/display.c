@@ -1,5 +1,6 @@
 #include "display.h"
 
+//init the display
 void display_init(ALLEGRO_DISPLAY **display, ALLEGRO_BITMAP **buffer)
 {
     *display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -9,6 +10,7 @@ void display_init(ALLEGRO_DISPLAY **display, ALLEGRO_BITMAP **buffer)
     must_init(buffer, "bitmap buffer");
 }
 
+//destroy the display
 void display_deinit(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *buffer)
 {
     al_destroy_display(display);

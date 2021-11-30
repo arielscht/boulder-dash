@@ -1,5 +1,6 @@
 #include "score.h"
 
+//insert a new value into an array position
 void insert(int array[MAX_SCORE_STORED], int scoreQtd, int value, int index)
 {
     int i = scoreQtd - 1;
@@ -10,6 +11,7 @@ void insert(int array[MAX_SCORE_STORED], int scoreQtd, int value, int index)
     array[index] = value;
 }
 
+//find the position to insert a new score
 void findIndexToInsert(int array[MAX_SCORE_STORED], int *scoreQtd, int score)
 {
     if (*scoreQtd == 0)
@@ -38,6 +40,7 @@ void findIndexToInsert(int array[MAX_SCORE_STORED], int *scoreQtd, int score)
     }
 }
 
+//read the score file
 void read_score(int savedScores[MAX_SCORE_STORED], int *scoreQtd)
 {
     FILE *scoreFile = fopen("./resources/data/score.txt", "r");
@@ -54,6 +57,7 @@ void read_score(int savedScores[MAX_SCORE_STORED], int *scoreQtd)
     }
 }
 
+//save the new score in the scores file
 void save_score(int score)
 {
     int savedScores[MAX_SCORE_STORED] = {0, 0, 0, 0, 0};

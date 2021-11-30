@@ -1,11 +1,13 @@
 #include "explosion.h"
 
+//init the explosions array
 void explosion_init(EXPLOSION *explosions)
 {
     for (int i = 0; i < MAX_EXPLOSIONS; i++)
         explosions[i].used = false;
 }
 
+//add a new explosion
 void explosion_add(int x, int y, EXPLOSION *explosions)
 {
     for (int i = 0; i < MAX_EXPLOSIONS; i++)
@@ -23,6 +25,7 @@ void explosion_add(int x, int y, EXPLOSION *explosions)
     }
 }
 
+//update the explosion
 void explosion_update(EXPLOSION *explosions, char map[MAP_HEIGHT][MAP_WIDTH])
 {
     for (int i = 0; i < MAX_EXPLOSIONS; i++)
@@ -35,6 +38,7 @@ void explosion_update(EXPLOSION *explosions, char map[MAP_HEIGHT][MAP_WIDTH])
         if (explosions[i].delay % 5 != 0)
             continue;
 
+        //updates the explosion sprites
         if (explosions[i].sprite_dir == 1)
             explosions[i].sourceX += SPRITE_WIDTH;
         else
@@ -45,6 +49,7 @@ void explosion_update(EXPLOSION *explosions, char map[MAP_HEIGHT][MAP_WIDTH])
         else if (explosions[i].sourceX == 0)
             explosions[i].sprite_dir = 1;
 
+        //Set map position to blank when the explosion finishes
         if (explosions[i].delay % 25 == 0)
         {
             int mapX = get_map_x_position(explosions[i].x);
@@ -55,6 +60,7 @@ void explosion_update(EXPLOSION *explosions, char map[MAP_HEIGHT][MAP_WIDTH])
     }
 }
 
+//draw the explosions
 void explosion_draw(EXPLOSION *explosions, SPRITES *sprites)
 {
     for (int i = 0; i < MAX_EXPLOSIONS; i++)
@@ -74,6 +80,7 @@ void explosion_draw(EXPLOSION *explosions, SPRITES *sprites)
     }
 };
 
+//explode e 3x3 area when given its center position
 void explode_map_area(EXPLOSION *explosions,
                       int centerX,
                       int centerY,

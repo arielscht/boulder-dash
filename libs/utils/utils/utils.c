@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "../../loadables/sprites/sprites.h"
 
+//util function to check if some pointer was initialized
 void must_init(bool test, const char *description)
 {
     if (test)
@@ -10,6 +11,7 @@ void must_init(bool test, const char *description)
     exit(1);
 }
 
+//check if memory was allocated
 void must_alloc(bool test, const char *description)
 {
     if (test)
@@ -19,6 +21,7 @@ void must_alloc(bool test, const char *description)
     exit(1);
 }
 
+//initialize the entities counters
 void init_entities_count(ENTITIES_QUANTITIES *entities)
 {
     entities->boulder = 0;
@@ -28,6 +31,7 @@ void init_entities_count(ENTITIES_QUANTITIES *entities)
     entities->wall = 0;
 }
 
+//initialize the game flags
 void init_game_flags(GAME_FLAGS *gameFlags)
 {
     gameFlags->cheatActivated = false;
@@ -38,11 +42,13 @@ void init_game_flags(GAME_FLAGS *gameFlags)
     gameFlags->redraw = true;
 }
 
+//get the map x position in the matrix when given a pixel location in the screen
 int get_map_x_position(int x)
 {
     return x / SPRITE_WIDTH;
 }
 
+//get the map y position in the matrix when given a pixel location in the screen
 int get_map_y_position(int y)
 {
     return (y / SPRITE_HEIGHT) - 1;
